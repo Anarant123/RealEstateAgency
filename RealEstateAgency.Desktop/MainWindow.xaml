@@ -1,0 +1,87 @@
+﻿<Window x:Class="RealEstateAgency.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RealEstateAgency.Desktop"
+        xmlns:uc="clr-namespace:RealEstateAgency.Desktop.UserControls"
+        mc:Ignorable="d"
+        MaxHeight="800" 
+        MaxWidth="1200"
+        Height="800" 
+        Width="1200"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="MenuButtonStyle" BasedOn="{StaticResource ButtonStyle}">
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Width" Value="150"/>
+        </Style>
+    </Window.Resources>
+
+    <!--Background-->
+    <Border Background="White">
+        <Grid x:Name="TitleBar">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                Background="#B0BEC5"
+                MouseDown="TitleBar_MouseDown">
+                <Image Source=" "
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="15,0,0,0"/>
+                <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right">
+                    <Button x:Name="btnMinimaze"
+                        Click="btnMinimaze_Click"
+                        Style="{DynamicResource ButtonTitleBar}">
+                        <TextBlock Text="-" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="btnMaximize"
+                        Click="btnMaximize_Click"
+                        Style="{DynamicResource ButtonTitleBar}">
+                        <TextBlock Text="□" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="btnClose"
+                        Click="btnClose_Click"
+                        Style="{DynamicResource CloseButtonTitleBar}">
+                        <TextBlock Text="x" VerticalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <Menu Grid.Row="1">
+                <Button Style="{DynamicResource MenuButtonStyle}" 
+                        Content="Потребности"
+                        x:Name="btnMenuNeed"
+                        Click="btnMenuNeed_Click"/>
+                <Button Style="{DynamicResource MenuButtonStyle}" 
+                        Content="Предложения"
+                        x:Name="btnMenuOffer"
+                        Click="btnMenuOffer_Click"/>
+                <Button Style="{DynamicResource MenuButtonStyle}" 
+                        Content="Клиенты"
+                        x:Name="btnMenuClient"
+                        Click="btnMenuClient_Click"/>
+                <Button Style="{DynamicResource MenuButtonStyle}" 
+                        Content="Риэлторы"
+                        x:Name="btnMenuRealtor"
+                        Click="btnMenuRealtor_Click"/>
+                <Button Style="{DynamicResource MenuButtonStyle}" 
+                        Content="Недвижимость"
+                        x:Name="btnMenuRealEstate"
+                        Click="btnMenuRealEstate_Click"/>
+                
+            </Menu>
+            <Frame Grid.Row="2"
+                   x:Name="frameMain"
+                   NavigationUIVisibility="Hidden"/>
+        </Grid>
+    </Border>
+</Window>

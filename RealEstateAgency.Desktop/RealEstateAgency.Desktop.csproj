@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\alert.svg" />
+    <None Remove="Resources\Images\danger.svg" />
+    <None Remove="Resources\Images\icon with name.svg" />
+    <None Remove="Resources\Images\icon.svg" />
+    <None Remove="Resources\Images\ic_add_box_white_48dp.png" />
+    <None Remove="Resources\Images\ic_control_point_white_48dp.png" />
+    <None Remove="Resources\Images\ic_create_white_48dp.png" />
+    <None Remove="Resources\Images\logo.png" />
+    <None Remove="Resources\Images\success.svg" />
+    <None Remove="Resources\Images\warning.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\alert.svg" />
+    <Resource Include="Resources\Images\danger.svg" />
+    <Resource Include="Resources\Images\icon with name.svg" />
+    <Resource Include="Resources\Images\icon.svg" />
+    <Resource Include="Resources\Images\ic_add_box_white_48dp.png" />
+    <Resource Include="Resources\Images\ic_control_point_white_48dp.png" />
+    <Resource Include="Resources\Images\ic_create_white_48dp.png" />
+    <Resource Include="Resources\Images\logo.png" />
+    <Resource Include="Resources\Images\success.svg" />
+    <Resource Include="Resources\Images\warning.svg" />
+  </ItemGroup>
+
+</Project>

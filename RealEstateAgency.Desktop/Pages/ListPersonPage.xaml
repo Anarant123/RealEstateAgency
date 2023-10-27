@@ -10,27 +10,27 @@
       Title="ListPersonPage">
 
     <StackPanel>
-        <Menu>
-            <uc:TextInput Placeholder="ФИО"
-                          x:Name="tiFullName"/>
-            <Button Style="{DynamicResource ButtonStyle}"
-                    Content="Поиск"
-                    x:Name="btnSearch"
-                    Click="btnSearch_Click"
-                    Width="100"
-                    HorizontalAlignment="Right"/>
-            <Button Style="{DynamicResource ButtonStyle}"
-                    Content="Сбросить"
-                    x:Name="btnResetSearch"
-                    Click="btnResetSearch_Click"
-                    Width="100"
-                    HorizontalAlignment="Right"/>
+        <DockPanel>
+            <WrapPanel DockPanel.Dock="Left">
+                <uc:TextInput Placeholder="ФИО"
+                              x:Name="tiFullName"/>
+                <Button Style="{DynamicResource ButtonStyle}"
+                        Content="Поиск"
+                        x:Name="btnSearch"
+                        Click="btnSearch_Click"
+                        Width="100"/>
+                <Button Style="{DynamicResource ButtonStyle}"
+                        Content="Сбросить"
+                        x:Name="btnResetSearch"
+                        Click="btnResetSearch_Click"
+                        Width="100"/>
+            </WrapPanel>
             <Button Style="{DynamicResource ButtonStyle}"
                     Content="Добавить"
                     x:Name="btnCreate"
                     Click="btnCreate_Click"
                     Width="100"
                     HorizontalAlignment="Right"/>
-        </Menu>
+        </DockPanel>
     </StackPanel>
 </Page>

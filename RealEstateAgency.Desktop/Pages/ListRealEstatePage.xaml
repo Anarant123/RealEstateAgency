@@ -1,0 +1,34 @@
+﻿<Page x:Class="RealEstateAgency.Desktop.Pages.ListRealEstatePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RealEstateAgency.Desktop.Pages"
+      xmlns:uc="clr-namespace:RealEstateAgency.Desktop.UserControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ListRealEstatePage">
+
+    <StackPanel>
+        <DockPanel>
+            <WrapPanel DockPanel.Dock="Left">
+                <uc:TextInput Placeholder="Организовать поиск"
+                          x:Name="tiFullName"/>
+                <Button Style="{DynamicResource ButtonStyle}"
+                    Content="Поиск"
+                    x:Name="btnSearch"
+                    Width="100"/>
+                <Button Style="{DynamicResource ButtonStyle}"
+                    Content="Сбросить"
+                    x:Name="btnResetSearch"
+                    Width="100"/>
+            </WrapPanel>
+            <Button Style="{DynamicResource ButtonStyle}"
+                Content="Добавить"
+                x:Name="btnCreate"
+                Click="btnCreate_Click"
+                Width="100"
+                HorizontalAlignment="Right"/>
+        </DockPanel>
+    </StackPanel>
+</Page>

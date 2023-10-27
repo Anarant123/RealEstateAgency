@@ -24,5 +24,24 @@ namespace RealEstateAgency.Desktop.Pages
         {
             InitializeComponent();
         }
+
+        private void btnAddAddress_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            btn.Visibility = Visibility.Collapsed;
+            panelAddress.Visibility = Visibility.Visible;
+        }
+
+        private void btnAddCoordinates_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            btn.Visibility = Visibility.Collapsed;
+            panelCoordinate.Visibility = Visibility.Visible;
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

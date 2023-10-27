@@ -8,11 +8,79 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RealEstatePage">
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#78909C"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style TargetType="StackPanel">
+            <Setter Property="Width" Value="Auto"/>
+        </Style>
+    </Page.Resources>
 
     <ScrollViewer>
         <StackPanel>
+            <WrapPanel>
+                <Button Style="{DynamicResource ButtonStyle}"
+                        Content="Добавить адресс"
+                        x:Name="btnAddAddress"
+                        Click="btnAddAddress_Click"
+                        Width="150"/>
+                <Button Style="{DynamicResource ButtonStyle}"
+                        Content="Добавить координаты"
+                        x:Name="btnAddCoordinates"
+                        Click="btnAddCoordinates_Click"
+                        Width="150"/>
+                <Button Style="{DynamicResource ButtonStyle}"
+                        Content="Сброс"
+                        x:Name="btnReset"
+                        Click="btnReset_Click"
+                        Width="150"/>
+            </WrapPanel>
             <ComboBox Style="{DynamicResource ComboBoxStyle}"
-                      Tag="Тип"/>
+                      Tag="Тип"
+                      x:Name="cbType"
+                      Margin="15">
+            </ComboBox>
+            <WrapPanel Margin="10">
+                <StackPanel x:Name="panelTypeApartment"
+                            Visibility="Collapsed">
+                    <TextBlock Text="Информация:"/>
+                    <uc:TextInput Placeholder="Этаж"/>
+                    <uc:TextInput Placeholder="Количество комнат"/>
+                    <uc:TextInput Placeholder="Площадь"/>
+                </StackPanel>
+                <StackPanel x:Name="panelTypeHouse"
+                            Visibility="Collapsed">
+                    <TextBlock Text="Информация:"/>
+                    <uc:TextInput Placeholder="Количество этажей"/>
+                    <uc:TextInput Placeholder="Количество комнат"/>
+                    <uc:TextInput Placeholder="Площадь"/>
+                </StackPanel>
+                <StackPanel x:Name="panelTypeLandPlot"
+                            Visibility="Collapsed">
+                    <TextBlock Text="Информация:"/>
+                    <uc:TextInput Placeholder="Площадь"/>
+                </StackPanel>
+                <StackPanel x:Name="panelAddress"
+                            Visibility="Collapsed">
+                    <TextBlock Text="Адресс:"/>
+                    <uc:TextInput Placeholder="Город"/>
+                    <uc:TextInput Placeholder="Улица"/>
+                    <uc:TextInput Placeholder="Номер дома"/>
+                    <uc:TextInput Placeholder="Номер квартиры"/>
+                </StackPanel>
+                <StackPanel x:Name="panelCoordinate"
+                            Visibility="Collapsed">
+                    <TextBlock Text="Координаты:"/>
+                    <uc:TextInput Placeholder="Широта"/>
+                    <uc:TextInput Placeholder="Долгота"/>
+                </StackPanel>
+            </WrapPanel>
+            
         </StackPanel>
     </ScrollViewer>
 </Page>

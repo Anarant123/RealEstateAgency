@@ -9,14 +9,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Styles/ButtonsStyles/ButtonTitleBar.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/ButtonsStyles/Button.xaml"/>
-                <ResourceDictionary Source="/Resources/Styles/MenuStyles/MenuItem.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/ComboBoxStyles/ComboBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
-            
-            <Style TargetType="Menu">
-                <Setter Property="Background" Value="#FFFFFF"/>
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

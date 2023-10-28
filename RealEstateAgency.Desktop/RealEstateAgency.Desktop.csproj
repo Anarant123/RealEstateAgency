@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RealEstate.DBClient\RealEstate.DBClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\alert.svg" />
     <Resource Include="Resources\Images\danger.svg" />
     <Resource Include="Resources\Images\icon with name.svg" />

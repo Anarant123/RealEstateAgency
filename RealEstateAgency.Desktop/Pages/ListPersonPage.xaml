@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ListPersonPage">
 
-    <StackPanel>
+    <!--<StackPanel>
         <DockPanel>
             <WrapPanel DockPanel.Dock="Left">
                 <uc:TextInput Placeholder="ФИО"
@@ -32,5 +32,142 @@
                     Width="100"
                     HorizontalAlignment="Right"/>
         </DockPanel>
-    </StackPanel>
+    </StackPanel>-->
+
+    <Page.Resources>
+        <ControlTemplate x:Key="ComboBoxItemControlTemplate1"
+                         TargetType="{x:Type ComboBoxItem}">
+            <Border x:Name="Bd"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    Padding="{TemplateBinding Padding}"
+                    SnapsToDevicePixels="True">
+                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  Content="{TemplateBinding Content}"
+                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled"
+                         Value="False">
+                    <Setter Property="TextElement.Foreground"
+                            TargetName="Bd"
+                            Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected"
+                                   Value="False" />
+                        <Condition Property="IsMouseOver"
+                                   Value="True" />
+                        <Condition Property="IsKeyboardFocused"
+                                   Value="False" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background"
+                            TargetName="Bd"
+                            Value="#1F26A0DA" />
+                    <Setter Property="BorderBrush"
+                            TargetName="Bd"
+                            Value="Black" />
+                </MultiTrigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected"
+                                   Value="True" />
+                        <Condition Property="IsMouseOver"
+                                   Value="False" />
+                        <Condition Property="IsKeyboardFocused"
+                                   Value="True" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background"
+                            TargetName="Bd"
+                            Value="#3D26A0DA" />
+                    <Setter Property="BorderBrush"
+                            TargetName="Bd"
+                            Value="Black" />
+                </MultiTrigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected"
+                                   Value="True" />
+                        <Condition Property="IsMouseOver"
+                                   Value="True" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background"
+                            TargetName="Bd"
+                            Value="#2E0080FF" />
+                    <Setter Property="BorderBrush"
+                            TargetName="Bd"
+                            Value="Black" />
+                </MultiTrigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected"
+                                   Value="True" />
+                        <Condition Property="IsMouseOver"
+                                   Value="False" />
+                        <Condition Property="IsKeyboardFocused"
+                                   Value="False" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background"
+                            TargetName="Bd"
+                            Value="#3DDADADA" />
+                    <Setter Property="BorderBrush"
+                            TargetName="Bd"
+                            Value="Black" />
+                </MultiTrigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected"
+                                   Value="False" />
+                        <Condition Property="IsMouseOver"
+                                   Value="False" />
+                        <Condition Property="IsKeyboardFocused"
+                                   Value="True" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="BorderBrush"
+                            TargetName="Bd"
+                            Value="#FF26A0DA" />
+                </MultiTrigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected"
+                                   Value="False" />
+                        <Condition Property="IsMouseOver"
+                                   Value="True" />
+                        <Condition Property="IsKeyboardFocused"
+                                   Value="True" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background"
+                            TargetName="Bd"
+                            Value="#CFD8DC" />
+                    <Setter Property="BorderBrush"
+                            TargetName="Bd"
+                            Value="Black" />
+                </MultiTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Template"
+                Value="{StaticResource ComboBoxItemControlTemplate1}"></Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <ComboBox Height="20"
+                  Width="120"
+                  Background="White"
+                  IsDropDownOpen="True">
+            <ComboBoxItem Content="About Programm"
+                          Height="16" />
+            <ComboBoxItem Content="Report a Bug"
+                          Height="16" />
+            <ComboBoxItem Content="Feedback"
+                          Height="16" />
+            <ComboBoxItem Content="Other"
+                          Height="16" />
+        </ComboBox>
+    </Grid>
 </Page>

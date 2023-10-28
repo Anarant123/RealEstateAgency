@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,6 +70,8 @@ namespace RealEstateAgency.Desktop.UserControls
 
         public string Placeholder { get; set; }
 
+        public bool IsDigit { get; set; }
+
         public TextInput()
         {
             InitializeComponent();
@@ -81,6 +84,11 @@ namespace RealEstateAgency.Desktop.UserControls
             IsSuccess = isSuccess;
         }
 
-
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsDigit) return;
+            string inputText = (sender as TextBox).Text + e.Text;
+            if (!Regex.IsMatch(inputText, @"^[0-9]*(\.[0-9]*)?$")) e.Handled = true;
+        }
     }
 }

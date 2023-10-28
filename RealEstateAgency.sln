@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateAgency.Desktop", "RealEstateAgency.Desktop\RealEstateAgency.Desktop.csproj", "{8370A967-AD42-4EE4-B79D-47CA50BFEF29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealEstateAgency.Desktop", "RealEstateAgency.Desktop\RealEstateAgency.Desktop.csproj", "{8370A967-AD42-4EE4-B79D-47CA50BFEF29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstate.DBClient", "RealEstate.DBClient\RealEstate.DBClient.csproj", "{4E538E8D-50E7-4FEF-99CE-333AC3510C3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8370A967-AD42-4EE4-B79D-47CA50BFEF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8370A967-AD42-4EE4-B79D-47CA50BFEF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8370A967-AD42-4EE4-B79D-47CA50BFEF29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E538E8D-50E7-4FEF-99CE-333AC3510C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E538E8D-50E7-4FEF-99CE-333AC3510C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E538E8D-50E7-4FEF-99CE-333AC3510C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E538E8D-50E7-4FEF-99CE-333AC3510C3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

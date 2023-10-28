@@ -30,29 +30,29 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0"
-                Background="#B0BEC5"
-                MouseDown="TitleBar_MouseDown"
+                  Background="#B0BEC5"
+                  MouseDown="TitleBar_MouseDown"
                   VerticalAlignment="Center">
-                <Image Source=" "
+                <Image Source="/Resources/Images/logo.png"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Margin="15,0,0,0"/>
                 <StackPanel Orientation="Horizontal"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right">
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right">
                     <Button x:Name="btnMinimaze"
-                        Click="btnMinimaze_Click"
-                        Style="{DynamicResource ButtonTitleBar}">
+                            Click="btnMinimaze_Click"
+                            Style="{DynamicResource ButtonTitleBar}">
                         <TextBlock Text="-" VerticalAlignment="Center"/>
                     </Button>
                     <Button x:Name="btnMaximize"
-                        Click="btnMaximize_Click"
-                        Style="{DynamicResource ButtonTitleBar}">
+                            Click="btnMaximize_Click"
+                            Style="{DynamicResource ButtonTitleBar}">
                         <TextBlock Text="□" VerticalAlignment="Center"/>
                     </Button>
                     <Button x:Name="btnClose"
-                        Click="btnClose_Click"
-                        Style="{DynamicResource CloseButtonTitleBar}">
+                            Click="btnClose_Click"
+                            Style="{DynamicResource CloseButtonTitleBar}">
                         <TextBlock Text="x" VerticalAlignment="Center"/>
                     </Button>
                 </StackPanel>

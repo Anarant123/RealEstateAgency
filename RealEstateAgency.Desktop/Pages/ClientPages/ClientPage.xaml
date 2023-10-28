@@ -11,7 +11,7 @@
 
     <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Center">
-        <uc:TextInput Placeholder="Имя"/>
+        <uc:TextInput Placeholder="Имя" IsDigit="True"/>
         <uc:TextInput Placeholder="Фамилия"/>
         <uc:TextInput Placeholder="Отчество"/>
         <uc:TextInput Placeholder="Телефон"/>

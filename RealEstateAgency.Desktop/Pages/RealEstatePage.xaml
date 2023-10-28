@@ -19,6 +19,8 @@
         <Style TargetType="StackPanel">
             <Setter Property="Width" Value="Auto"/>
         </Style>
+        
+       
     </Page.Resources>
 
     <ScrollViewer>
@@ -40,11 +42,19 @@
                         Click="btnReset_Click"
                         Width="150"/>
             </WrapPanel>
-            <ComboBox Style="{DynamicResource ComboBoxStyle}"
+
+            <ComboBox x:Name="cbType"
                       Tag="Тип"
-                      x:Name="cbType"
-                      Margin="15">
+                      Margin="15"
+                      HorizontalAlignment="Left"
+                      FontSize="18">
+                <ComboBoxItem Content="adfadfasdfasdfa"/>
+                <ComboBoxItem Content="adfadfasdfasdfa"/>
+                <ComboBoxItem Content="adfadfasdfasdfa"/>
+                <ComboBoxItem Content="adfadfasdfasdfa"/>
+                <ComboBoxItem Content="adfadfasdfasdfa"/>
             </ComboBox>
+            
             <WrapPanel Margin="10">
                 <StackPanel x:Name="panelTypeApartment"
                             Visibility="Collapsed">

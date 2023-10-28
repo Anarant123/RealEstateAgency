@@ -58,7 +58,8 @@
         <TextBox Tag="{Binding Placeholder}"
                  Text="{Binding Text}"
                  Foreground="{Binding TextColor}"
-                 MaxLength="80"/>
+                 MaxLength="80"
+                 PreviewTextInput="TextBox_PreviewTextInput"/>
         <TextBlock Text="{Binding Message}"
                Visibility="{Binding VisibilitySettings}"
                Foreground="{Binding Color}"

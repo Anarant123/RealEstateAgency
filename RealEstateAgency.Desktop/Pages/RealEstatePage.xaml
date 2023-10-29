@@ -44,6 +44,7 @@
             </WrapPanel>
 
             <ComboBox x:Name="cbType"
+                      Style="{DynamicResource ComboBoxStyle}"
                       Tag="Тип"
                       Margin="15"
                       HorizontalAlignment="Left"

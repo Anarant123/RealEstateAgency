@@ -5,34 +5,7 @@
     <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#B0BEB5"/>
     <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="#B0BEB5"/>
-
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="#B0BEB5"/>
-
-    <SolidColorBrush x:Key="ComboBox.Pressed.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Border" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border" Color="#B0BEB5"/>
-    
-    <SolidColorBrush x:Key="ComboBox.Disabled.Background" Color="#FFF0F0F0"/>
-    <SolidColorBrush x:Key="ComboBox.Disabled.Border" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.Disabled.Glyph" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Border" Color="#B0BEB5"/>
-    <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Border" Color="#B0BEB5"/>
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="#CFD8DC"/>
 
     <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -121,20 +94,22 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="ComboBoxItemControlTemplate"
-                         TargetType="{x:Type ComboBoxItem}">
+                     TargetType="{x:Type ComboBoxItem}">
         <Border x:Name="Bd"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     Background="{TemplateBinding Background}"
                     Padding="{TemplateBinding Padding}"
                     SnapsToDevicePixels="True">
+
             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  Content="{TemplateBinding Content}"
-                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                              Content="{TemplateBinding Content}"
+                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
         </Border>
+        
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"
                          Value="False">
@@ -153,10 +128,10 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                             TargetName="Bd"
-                            Value="#1F26A0DA" />
+                            Value="{StaticResource ComboBox.MouseOver.Editable.Background}" />
                 <Setter Property="BorderBrush"
                             TargetName="Bd"
-                            Value="Black" />
+                            Value="{StaticResource ComboBox.MouseOver.Editable.Background}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -169,10 +144,10 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                             TargetName="Bd"
-                            Value="#3D26A0DA" />
+                            Value="{StaticResource ComboBox.MouseOver.Editable.Background}" />
                 <Setter Property="BorderBrush"
                             TargetName="Bd"
-                            Value="Black" />
+                            Value="{StaticResource ComboBox.MouseOver.Editable.Background}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -183,10 +158,10 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                             TargetName="Bd"
-                            Value="#2E0080FF" />
+                            Value="{StaticResource ComboBox.MouseOver.Editable.Background}" />
                 <Setter Property="BorderBrush"
                             TargetName="Bd"
-                            Value="Black" />
+                            Value="{StaticResource ComboBox.MouseOver.Editable.Background}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -199,10 +174,12 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                             TargetName="Bd"
-                            Value="#3DDADADA" />
+                            Value="Transparent" />
                 <Setter Property="BorderBrush"
                             TargetName="Bd"
-                            Value="Black" />
+                            Value="Transparent" />
+                <Setter Property="TextElement.Foreground"
+                        Value="#37474F" />  
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -215,7 +192,7 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
                             TargetName="Bd"
-                            Value="#FF26A0DA" />
+                            Value="{StaticResource ComboBox.MouseOver.Editable.Background}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -228,10 +205,10 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                             TargetName="Bd"
-                            Value="#CFD8DC" />
+                            Value="{StaticResource ComboBox.MouseOver.Editable.Background}" />
                 <Setter Property="BorderBrush"
                             TargetName="Bd"
-                            Value="Black" />
+                            Value="{StaticResource ComboBox.MouseOver.Editable.Background}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -241,7 +218,14 @@
         <Setter Property="Height" Value="36"/>
         <Setter Property="Width" Value="300"/>
         <Setter Property="Foreground" Value="#78909C"/>
-        <Setter Property="Template" Value="{StaticResource ComboBoxItemControlTemplate}"/>
+        <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Template" Value="{StaticResource ComboBoxItemControlTemplate}" />
+                </Style>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

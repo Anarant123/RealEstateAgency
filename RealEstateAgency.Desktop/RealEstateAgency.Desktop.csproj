@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RealEstate.DBClient\RealEstate.DBClient.csproj" />
+    <ProjectReference Include="..\RealEstateAgency.DBClient\RealEstateAgency.DBClient.csproj" />
   </ItemGroup>
 
   <ItemGroup>

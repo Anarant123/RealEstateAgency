@@ -11,15 +11,31 @@
 
     <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Center">
-        <uc:TextInput Placeholder="Имя" IsDigit="True"/>
-        <uc:TextInput Placeholder="Фамилия"/>
-        <uc:TextInput Placeholder="Отчество"/>
-        <uc:TextInput Placeholder="Телефон"/>
-        <uc:TextInput Placeholder="Почта"/>
+        <StackPanel x:Name="panelForm">
+            <uc:UCTextInput x:Name="tiName" 
+                            Placeholder="Имя"
+                            IsNullable="True"/>
+            <uc:UCTextInput x:Name="tiLastName" 
+                            Placeholder="Фамилия"
+                            IsNullable="True"/>
+            <uc:UCTextInput x:Name="tiMiddleName" 
+                            Placeholder="Отчество"
+                            IsNullable="True"/>
+            <uc:UCTextInput x:Name="tiPhoneNumber" 
+                            Placeholder="Телефон"/>
+            <uc:UCTextInput x:Name="tiEmail" 
+                            Placeholder="Почта"/>
+        </StackPanel>
         <StackPanel x:Name="panelBtnToCreate"
                     Visibility="Collapsed">
             <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Добавить"/>
+                    Content="Добавить"
+                    x:Name="btnCreate"
+                    Click="btnCreate_Click"/>
+            <Button Style="{DynamicResource ButtonStyle}" 
+                    Content="Отмена"
+                    x:Name="btnCancelCreate"
+                    Click="btnCancelCreate_Click"/>
         </StackPanel>
         <StackPanel x:Name="panelBtnToEdit"
                     Visibility="Collapsed">

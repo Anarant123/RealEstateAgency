@@ -25,6 +25,7 @@ namespace RealEstateAgency.Desktop
         public MainWindow()
         {
             InitializeComponent();
+            Context.dBClient = new DBClient.DBClient(new DBClient.Data.Models.RealEstateAgencyContext());
             frameMain.NavigationService.Navigate(new ClientPage());
         }
 

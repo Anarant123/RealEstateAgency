@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealEstateAgency.Desktop.Pages.ClientPages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace RealEstateAgency.Desktop.Pages
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new ClientPage());
         }
 
         private void btnResetSearch_Click(object sender, RoutedEventArgs e)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RealEstate.DBClient.Models.db;
+namespace RealEstateAgency.DBClient.Data.Models.db;
 
 public partial class NeedForLandPlot
 {

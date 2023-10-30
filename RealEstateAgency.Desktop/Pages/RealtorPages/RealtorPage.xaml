@@ -10,10 +10,10 @@
 
     <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Center">
-        <uc:TextInput Placeholder="Имя"/>
-        <uc:TextInput Placeholder="Фамилия"/>
-        <uc:TextInput Placeholder="Отчество"/>
-        <uc:TextInput Placeholder="Доля от комиссии"/>
+        <uc:UCTextInput Placeholder="Имя"/>
+        <uc:UCTextInput Placeholder="Фамилия"/>
+        <uc:UCTextInput Placeholder="Отчество"/>
+        <uc:UCTextInput Placeholder="Доля от комиссии"/>
         <StackPanel x:Name="panelBtnToCreate"
                 Visibility="Collapsed">
             <Button Style="{DynamicResource ButtonStyle}" 

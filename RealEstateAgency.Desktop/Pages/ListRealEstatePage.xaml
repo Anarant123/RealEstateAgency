@@ -12,7 +12,7 @@
     <StackPanel>
         <DockPanel>
             <WrapPanel DockPanel.Dock="Left">
-                <uc:TextInput Placeholder="Организовать поиск"
+                <uc:UCTextInput Placeholder="Организовать поиск"
                           x:Name="tiFullName"/>
                 <Button Style="{DynamicResource ButtonStyle}"
                     Content="Поиск"

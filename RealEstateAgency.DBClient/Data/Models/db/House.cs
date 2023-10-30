@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RealEstate.DBClient.Models.db;
+namespace RealEstateAgency.DBClient.Data.Models.db;
 
-public partial class Apartment
+public partial class House
 {
     public int Id { get; set; }
 
-    public string Floor { get; set; } = null!;
+    public string CountFloors { get; set; } = null!;
 
     public string CountRooms { get; set; } = null!;
 

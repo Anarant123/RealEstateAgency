@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using RealEstateAgency.DBClient.Data.Models.db;
 
-namespace RealEstate.DBClient.Models.db;
+namespace RealEstateAgency.DBClient.Data.Models;
 
 public partial class RealEstateAgencyContext : DbContext
 {

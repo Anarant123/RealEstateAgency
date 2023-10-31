@@ -46,10 +46,6 @@
                         x:Name="btnEdit"
                         Click="btnEdit_Click"/>
                 <Button Style="{DynamicResource ButtonStyle}" 
-                        Content=",sdfolkasldfalsdfklasdf"
-                        x:Name="btnDropMessage"
-                        Click="btnDropMessage_Click"/>
-                <Button Style="{DynamicResource ButtonStyle}" 
                         Content="Удалить"
                         x:Name="btnDelete"
                         Click="btnDelete_Click"/>

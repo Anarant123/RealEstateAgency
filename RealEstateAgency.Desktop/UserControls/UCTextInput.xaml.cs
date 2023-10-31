@@ -190,7 +190,6 @@ namespace RealEstateAgency.Desktop.UserControls
             {
                 if (child is UCTextInput textInput)
                 {
-                    textInput.RemoveMessage();
                     textInput.IsEnabled = false;
                     if (textInput.IsNullOrEmpty(textInput.Text))
                     {
@@ -206,7 +205,7 @@ namespace RealEstateAgency.Desktop.UserControls
             {
                 if (child is UCTextInput textInput)
                 {
-                    textInput.IsEnabled = false;
+                    textInput.IsEnabled = true;
                     textInput.Visibility = Visibility.Visible;
                 }
             }

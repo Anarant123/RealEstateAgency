@@ -41,21 +41,16 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
             OnAppearing();
 
             UCTextInput.ToCollapsed(panelForm);
-
+            RemoveMessage();
         }
 
         private void OnAppearing()
         {
             tiName.Text = _client.Name!;
-            tiName.RemoveMessage();
             tiLastName.Text = _client.LastName!;
-            tiLastName.RemoveMessage();
             tiMiddleName.Text = _client.MiddleName!;
-            tiMiddleName.RemoveMessage();
             tiPhoneNumber.Text = _client.PhoneNumber!;
-            tiPhoneNumber.RemoveMessage();
             tiEmail.Text = _client.Email!;
-            tiEmail.RemoveMessage();
         }
 
         private async void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -161,9 +156,13 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
             NavigationService.Navigate(new ListPersonPage());
         }
 
-        private void btnDropMessage_Click(object sender, RoutedEventArgs e)
+        private void RemoveMessage()
         {
             tiName.RemoveMessage();
+            tiEmail.RemoveMessage();
+            tiLastName.RemoveMessage();
+            tiMiddleName.RemoveMessage();
+            tiPhoneNumber.RemoveMessage();
         }
     }
 }

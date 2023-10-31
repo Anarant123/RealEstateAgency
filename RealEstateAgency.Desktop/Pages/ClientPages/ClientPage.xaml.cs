@@ -160,5 +160,10 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
             Context.dBClient.DeleteClient(_client.Id);
             NavigationService.Navigate(new ListPersonPage());
         }
+
+        private void btnDropMessage_Click(object sender, RoutedEventArgs e)
+        {
+            tiName.RemoveMessage();
+        }
     }
 }

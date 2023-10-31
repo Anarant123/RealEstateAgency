@@ -47,10 +47,15 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
         private void OnAppearing()
         {
             tiName.Text = _client.Name!;
+            tiName.RemoveMessage();
             tiLastName.Text = _client.LastName!;
+            tiLastName.RemoveMessage();
             tiMiddleName.Text = _client.MiddleName!;
+            tiMiddleName.RemoveMessage();
             tiPhoneNumber.Text = _client.PhoneNumber!;
+            tiPhoneNumber.RemoveMessage();
             tiEmail.Text = _client.Email!;
+            tiEmail.RemoveMessage();
         }
 
         private async void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -147,6 +152,7 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
         {
             panelBtnsEditSettings.Visibility = Visibility.Visible;
             panelBtnToEdit.Visibility = Visibility.Collapsed;
+            UCTextInput.ToEdit(panelForm);
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

@@ -26,7 +26,7 @@ namespace RealEstateAgency.Desktop
         {
             InitializeComponent();
             Context.dBClient = new DBClient.DBClient(new DBClient.Data.Models.RealEstateAgencyContext());
-            frameMain.NavigationService.Navigate(new ClientPage());
+            //frameMain.NavigationService.Navigate(new ClientPage());
         }
 
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)

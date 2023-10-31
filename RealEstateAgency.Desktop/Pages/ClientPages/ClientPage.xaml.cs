@@ -24,6 +24,7 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
     /// </summary>
     public partial class ClientPage : Page
     {
+        private Client _client;
         public ClientPage()
         {
             InitializeComponent();
@@ -32,17 +33,24 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
 
         public ClientPage(Client client)
         {
+            _client = client;
+
             InitializeComponent();
             panelBtnToEdit.Visibility = Visibility.Visible;
 
-            tiName.Text = client.Name!;
-            tiLastName.Text = client.LastName!;
-            tiMiddleName.Text = client.MiddleName!;
-            tiPhoneNumber.Text = client.PhoneNumber!;
-            tiEmail.Text = client.Email!;
+            OnAppearing();
 
             UCTextInput.ToCollapsed(panelForm);
 
+        }
+
+        private void OnAppearing()
+        {
+            tiName.Text = _client.Name!;
+            tiLastName.Text = _client.LastName!;
+            tiMiddleName.Text = _client.MiddleName!;
+            tiPhoneNumber.Text = _client.PhoneNumber!;
+            tiEmail.Text = _client.Email!;
         }
 
         private async void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -87,11 +95,62 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
             NavigationService.GoBack();
         }
 
+        private async void btnSaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+            var result = true;
+            if (!UCTextInput.CheckPanelForm(panelForm))
+                result = false;
 
-        //  Конструктор для проссмотра пользователя или редактирования
-        //public ClientPage()
-        //{
-        //    InitializeComponent();
-        //}
+            if (tiPhoneNumber.IsNullOrEmpty(tiPhoneNumber.Text) && tiEmail.IsNullOrEmpty(tiEmail.Text))
+            {
+                tiPhoneNumber.SetMessage("Одно из этих полей должно быть заполненно", false);
+                tiEmail.SetMessage("Одно из этих полей должно быть заполненно", false);
+                result = false;
+            }
+            else
+            {
+                if (tiPhoneNumber.IsNullOrEmpty(tiPhoneNumber.Text))
+                    tiPhoneNumber.SuccessMessage();
+                else if (tiEmail.IsNullOrEmpty(tiEmail.Text))
+                    tiEmail.SuccessMessage();
+                result = true;
+            }
+
+            if (!result)
+                return;
+
+            UpdateClientRequest updateClientRequest = new UpdateClientRequest()
+            {
+                Id = _client.Id,
+                Name = tiName.Text,
+                LastName = tiLastName.Text,
+                MiddleName = tiMiddleName.Text,
+                PhoneNumber = tiPhoneNumber.Text,
+                Email = tiEmail.Text,
+            };
+
+            var client = await Context.dBClient.UpdateClient(updateClientRequest);
+
+            NavigationService.Navigate(new ClientPage(client));
+        }
+
+        private void btnCancelChanges_Click(object sender, RoutedEventArgs e)
+        {
+            OnAppearing();
+            panelBtnToEdit.Visibility = Visibility.Visible;
+            panelBtnsEditSettings.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            panelBtnsEditSettings.Visibility = Visibility.Visible;
+            panelBtnToEdit.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Context.dBClient.DeleteClient(_client.Id);
+            NavigationService.GoBack();
+        }
     }
 }

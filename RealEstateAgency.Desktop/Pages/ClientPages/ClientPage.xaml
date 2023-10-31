@@ -9,45 +9,58 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ClientPage">
 
-    <StackPanel Orientation="Vertical"
-                HorizontalAlignment="Center">
-        <StackPanel x:Name="panelForm">
-            <uc:UCTextInput x:Name="tiName" 
-                            Placeholder="Имя"
-                            IsNullable="True"/>
-            <uc:UCTextInput x:Name="tiLastName" 
-                            Placeholder="Фамилия"
-                            IsNullable="True"/>
-            <uc:UCTextInput x:Name="tiMiddleName" 
-                            Placeholder="Отчество"
-                            IsNullable="True"/>
-            <uc:UCTextInput x:Name="tiPhoneNumber" 
-                            Placeholder="Телефон"/>
-            <uc:UCTextInput x:Name="tiEmail" 
-                            Placeholder="Почта"/>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center">
+            <StackPanel x:Name="panelForm">
+                <uc:UCTextInput x:Name="tiName" 
+                                Placeholder="Имя"
+                                IsNullable="True"/>
+                <uc:UCTextInput x:Name="tiLastName" 
+                                Placeholder="Фамилия"
+                                IsNullable="True"/>
+                <uc:UCTextInput x:Name="tiMiddleName" 
+                                Placeholder="Отчество"
+                                IsNullable="True"/>
+                <uc:UCTextInput x:Name="tiPhoneNumber" 
+                                Placeholder="Телефон"/>
+                <uc:UCTextInput x:Name="tiEmail" 
+                                Placeholder="Почта"/>
+            </StackPanel>
+            <StackPanel x:Name="panelBtnToCreate"
+                        Visibility="Collapsed">
+                <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Добавить"
+                        x:Name="btnCreate"
+                        Click="btnCreate_Click"/>
+                <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Отмена"
+                        x:Name="btnCancelCreate"
+                        Click="btnCancelCreate_Click"/>
+            </StackPanel>
+            <StackPanel x:Name="panelBtnToEdit"
+                        Visibility="Collapsed">
+                <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Редактировать"
+                        x:Name="btnEdit"
+                        Click="btnEdit_Click"/>
+                <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Удалить"
+                        x:Name="btnDelete"
+                        Click="btnDelete_Click"/>
+            </StackPanel>
+            <StackPanel x:Name="panelBtnsEditSettings"
+                        Visibility="Collapsed">
+                <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Сохранить"
+                        x:Name="btnSaveChanges"
+                        Click="btnSaveChanges_Click"/>
+                <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Отмена"
+                        x:Name="btnCancelChanges"
+                        Click="btnCancelChanges_Click"/>
+            </StackPanel>
         </StackPanel>
-        <StackPanel x:Name="panelBtnToCreate"
-                    Visibility="Collapsed">
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Добавить"
-                    x:Name="btnCreate"
-                    Click="btnCreate_Click"/>
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Отмена"
-                    x:Name="btnCancelCreate"
-                    Click="btnCancelCreate_Click"/>
-        </StackPanel>
-        <StackPanel x:Name="panelBtnToEdit"
-                    Visibility="Collapsed">
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Редактировать"/>
-        </StackPanel>
-        <StackPanel x:Name="panelBtnsEditSettings"
-                    Visibility="Collapsed">
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Сохранить"/>
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Отмена"/>
-        </StackPanel>
-    </StackPanel>
+    </ScrollViewer>
 </Page>

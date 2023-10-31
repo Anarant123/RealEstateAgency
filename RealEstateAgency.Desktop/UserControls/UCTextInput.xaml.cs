@@ -199,5 +199,21 @@ namespace RealEstateAgency.Desktop.UserControls
                 }
             }
         }
+
+        //public static void ToEdit(Panel panel)
+        //{
+        //    foreach (var child in panel.Children)
+        //    {
+        //        if (child is UCTextInput textInput)
+        //        {
+        //            textInput.RemoveMessage();
+        //            textInput.IsEnabled = false;
+        //            if (textInput.IsNullOrEmpty(textInput.Text))
+        //            {
+        //                textInput.Visibility = Visibility.Collapsed;
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

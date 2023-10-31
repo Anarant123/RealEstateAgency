@@ -87,6 +87,7 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
             };
             var client = await Context.dBClient.CreateClient(createClientRequest);
 
+            NavigationService.Navigate(new NullPage());
             NavigationService.Navigate(new ClientPage(client));
         }
 
@@ -131,6 +132,7 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
 
             var client = await Context.dBClient.UpdateClient(updateClientRequest);
 
+            NavigationService.Navigate(new NullPage());
             NavigationService.Navigate(new ClientPage(client));
         }
 
@@ -150,7 +152,7 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             Context.dBClient.DeleteClient(_client.Id);
-            NavigationService.GoBack();
+            NavigationService.Navigate(new ListPersonPage());
         }
     }
 }

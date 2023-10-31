@@ -37,13 +37,15 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
 
             InitializeComponent();
             panelBtnToEdit.Visibility = Visibility.Visible;
+        }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_client == null) return;
             OnAppearing();
-
             UCTextInput.ToCollapsed(panelForm);
             RemoveMessage();
         }
-
         private void OnAppearing()
         {
             tiName.Text = _client.Name!;
@@ -51,6 +53,15 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
             tiMiddleName.Text = _client.MiddleName!;
             tiPhoneNumber.Text = _client.PhoneNumber!;
             tiEmail.Text = _client.Email!;
+        }
+
+        private void RemoveMessage()
+        {
+            tiName.RemoveMessage();
+            tiEmail.RemoveMessage();
+            tiLastName.RemoveMessage();
+            tiMiddleName.RemoveMessage();
+            tiPhoneNumber.RemoveMessage();
         }
 
         private async void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -141,6 +152,7 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
             OnAppearing();
             panelBtnToEdit.Visibility = Visibility.Visible;
             panelBtnsEditSettings.Visibility = Visibility.Collapsed;
+            UCTextInput.ToCollapsed(panelForm);
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -153,16 +165,7 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             Context.dBClient.DeleteClient(_client.Id);
-            NavigationService.Navigate(new ListPersonPage());
-        }
-
-        private void RemoveMessage()
-        {
-            tiName.RemoveMessage();
-            tiEmail.RemoveMessage();
-            tiLastName.RemoveMessage();
-            tiMiddleName.RemoveMessage();
-            tiPhoneNumber.RemoveMessage();
+            NavigationService.Navigate(new ListPersonPage(1));
         }
     }
 }

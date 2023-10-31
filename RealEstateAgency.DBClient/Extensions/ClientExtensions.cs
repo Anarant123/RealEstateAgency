@@ -33,7 +33,7 @@ namespace RealEstateAgency.DBClient.Extensions
                 Email = createClient.Email,
             };
 
-            dbClient.context.Add(client);
+            dbClient.context.Clients.Add(client);
             await dbClient.context.SaveChangesAsync();
 
             return client;
@@ -51,7 +51,6 @@ namespace RealEstateAgency.DBClient.Extensions
                 client.PhoneNumber = updateClient.PhoneNumber;
                 client.Email = updateClient.Email;
 
-                dbClient.context.Clients.Add(client);
                 await dbClient.context.SaveChangesAsync();
                 return client;
             }

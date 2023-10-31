@@ -54,11 +54,11 @@ namespace RealEstateAgency.Desktop
 
         private void btnMenuClient_Click(object sender, RoutedEventArgs e)
         {
-            frameMain.NavigationService.Navigate(new ListPersonPage());
+            frameMain.NavigationService.Navigate(new ListPersonPage(1));
         }
         private void btnMenuRealtor_Click(object sender, RoutedEventArgs e)
         {
-            frameMain.NavigationService.Navigate(new ListPersonPage());
+            frameMain.NavigationService.Navigate(new ListPersonPage(2));
         }
 
         private void btnMenuRealEstate_Click(object sender, RoutedEventArgs e)

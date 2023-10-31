@@ -6,30 +6,55 @@
       xmlns:uc="clr-namespace:RealEstateAgency.Desktop.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="RealtorPage">
+      Title="RealtorPage"
+      Loaded="Page_Loaded">
 
     <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Center">
-        <uc:UCTextInput Placeholder="Имя"/>
-        <uc:UCTextInput Placeholder="Фамилия"/>
-        <uc:UCTextInput Placeholder="Отчество"/>
-        <uc:UCTextInput Placeholder="Доля от комиссии"/>
+        <StackPanel x:Name="panelForm">
+            <uc:UCTextInput x:Name="tiName" 
+                            Placeholder="Имя"/>
+            <uc:UCTextInput x:Name="tiLastName" 
+                            Placeholder="Фамилия"/>
+            <uc:UCTextInput x:Name="tiMiddleName" 
+                            Placeholder="Отчество"/>
+            <uc:UCTextInput x:Name="tiShare"
+                            Placeholder="Доля от комиссии"
+                            IsNullable="True"
+                            IsDigit="True"/>
+        </StackPanel>
         <StackPanel x:Name="panelBtnToCreate"
-                Visibility="Collapsed">
+                    Visibility="Collapsed">
             <Button Style="{DynamicResource ButtonStyle}" 
-                Content="Добавить"/>
+                    Content="Добавить"
+                    x:Name="btnCreate"
+                    Click="btnCreate_Click"/>
+            <Button Style="{DynamicResource ButtonStyle}" 
+                    Content="Отмена"
+                    x:Name="btnCancelCreate"
+                    Click="btnCancelCreate_Click"/>
         </StackPanel>
         <StackPanel x:Name="panelBtnToEdit"
-                Visibility="Collapsed">
+                    Visibility="Collapsed">
             <Button Style="{DynamicResource ButtonStyle}" 
-                Content="Редактировать"/>
+                    Content="Редактировать"
+                    x:Name="btnEdit"
+                    Click="btnEdit_Click"/>
+            <Button Style="{DynamicResource ButtonStyle}" 
+                    Content="Удалить"
+                    x:Name="btnDelete"
+                    Click="btnDelete_Click"/>
         </StackPanel>
         <StackPanel x:Name="panelBtnsEditSettings"
-                Visibility="Collapsed">
+                    Visibility="Collapsed">
             <Button Style="{DynamicResource ButtonStyle}" 
-                Content="Сохранить"/>
+                    Content="Сохранить"
+                    x:Name="btnSaveChanges"
+                    Click="btnSaveChanges_Click"/>
             <Button Style="{DynamicResource ButtonStyle}" 
-                Content="Отмена"/>
+                    Content="Отмена"
+                    x:Name="btnCancelChanges"
+                    Click="btnCancelChanges_Click"/>
         </StackPanel>
     </StackPanel>
 </Page>

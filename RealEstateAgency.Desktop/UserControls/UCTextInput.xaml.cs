@@ -156,6 +156,8 @@ namespace RealEstateAgency.Desktop.UserControls
             return string.IsNullOrEmpty(text);
         }
 
+        public bool NotNeedMessage { get; set; }
+
         public static bool CheckPanelForm (Panel panel)
         {
             var result = true;
@@ -175,6 +177,8 @@ namespace RealEstateAgency.Desktop.UserControls
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (NotNeedMessage)
+                return;
             if (IsNullable != true && IsNullOrEmpty((sender as TextBox).Text))
             {
                 SetMessage("Это поле не может быть пустым", false);

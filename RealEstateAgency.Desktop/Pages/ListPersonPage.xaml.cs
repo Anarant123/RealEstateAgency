@@ -1,4 +1,8 @@
-﻿using RealEstateAgency.Desktop.Pages.ClientPages;
+﻿using RealEstateAgency.DBClient.Data.Models.db;
+using RealEstateAgency.DBClient.Extensions;
+using RealEstateAgency.Desktop.Pages.ClientPages;
+using RealEstateAgency.Desktop.Pages.RealtorPages;
+using RealEstateAgency.Desktop.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,24 +25,57 @@ namespace RealEstateAgency.Desktop.Pages
     /// </summary>
     public partial class ListPersonPage : Page
     {
-        public ListPersonPage()
+        int mode = 0;
+        public ListPersonPage(int mode)
         {
             InitializeComponent();
+            this.mode = mode;
+            if (mode == 1)
+                lvPeople.ItemsSource = Context.dBClient.GetClients();
+            if (mode == 2)
+                lvPeople.ItemsSource = Context.dBClient.GetRealtors();
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ClientPage());
+            if (mode == 1)
+                NavigationService.Navigate(new ClientPage());
+            if (mode == 2)
+                NavigationService.Navigate(new RealtorPage());
         }
 
         private void btnResetSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            tiFullName.Text = string.Empty;
+            if (mode == 1)
+                lvPeople.ItemsSource = Context.dBClient.GetClients();
+            if (mode == 2)
+                lvPeople.ItemsSource = Context.dBClient.GetRealtors();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            if (mode == 1)
+            {
+                lvPeople.ItemsSource = LevenshteinDistance.SearchItemsByNameFuzzy("John", Context.dBClient.GetClients(), client => client.Name);
+            }
+            if (mode == 2)
+            {
+                lvPeople.ItemsSource = LevenshteinDistance.SearchItemsByNameFuzzy("Alice", Context.dBClient.GetRealtors(), realtor => realtor.Name);
+            }
+        }
 
+        private void lvPeople_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvPeople.SelectedItem is Client selectedClient)
+            {
+                NavigationService.Navigate(new ClientPage(selectedClient));
+            }
+
+            if (lvPeople.SelectedItem is Realtor selectedRealtor)
+            {
+                NavigationService.Navigate(new RealtorPage(selectedRealtor));
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RealEstateAgency.DBClient.Extensions
 {
-    internal class DealExtension
+    public class DealExtension
     {
     }
 }

@@ -1,8 +1,6 @@
-﻿using RealEstateAgency.DBClient;
-using RealEstateAgency.DBClient.Contracts.Requests;
+﻿using RealEstateAgency.DBClient.Contracts.Requests;
 using RealEstateAgency.DBClient.Data.Models.db;
 using RealEstateAgency.DBClient.Extensions;
-using RealEstateAgency.Desktop.Pages.ClientPages;
 using RealEstateAgency.Desktop.UserControls;
 using System;
 using System.Collections.Generic;
@@ -19,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RealEstateAgency.Desktop.Pages.RealtorPages
+namespace RealEstateAgency.Desktop.Pages
 {
     /// <summary>
     /// Логика взаимодействия для RealtorPage.xaml

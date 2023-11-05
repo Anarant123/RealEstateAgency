@@ -7,9 +7,10 @@
       xmlns:uc="clr-namespace:RealEstateAgency.Desktop.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="RealEstatePage">
+      Title="RealEstatePage"
+      Loaded="Page_Loaded">
     <Page.Resources>
-        <Style TargetType="TextBlock">
+        <Style TargetType="TextBlock" x:Key="TextBoxStyle">
             <Setter Property="Foreground" Value="#78909C"/>
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -25,7 +26,9 @@
 
     <ScrollViewer>
         <StackPanel>
-            <WrapPanel>
+            
+            <WrapPanel x:Name="panelAddPanel"
+                       Visibility="Collapsed">
                 <Button Style="{DynamicResource ButtonStyle}"
                         Content="Добавить адресс"
                         x:Name="btnAddAddress"
@@ -48,50 +51,121 @@
                       Tag="Тип"
                       Margin="15"
                       HorizontalAlignment="Left"
-                      FontSize="18">
-                <ComboBoxItem Content="adfadfasdfasdfa"/>
-                <ComboBoxItem Content="adfadfasdfasdfa"/>
-                <ComboBoxItem Content="adfadfasdfasdfa"/>
-                <ComboBoxItem Content="adfadfasdfasdfa"/>
-                <ComboBoxItem Content="adfadfasdfasdfa"/>
+                      FontSize="18"
+                      SelectionChanged="cbType_SelectionChanged"
+                      Visibility="Collapsed">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
             
             <WrapPanel Margin="10">
+                
                 <StackPanel x:Name="panelTypeApartment"
                             Visibility="Collapsed">
-                    <TextBlock Text="Информация:"/>
-                    <uc:UCTextInput Placeholder="Этаж"/>
-                    <uc:UCTextInput Placeholder="Количество комнат"/>
-                    <uc:UCTextInput Placeholder="Площадь"/>
+                    <TextBlock Text="Информация:"
+                               Style="{StaticResource TextBoxStyle}"/>
+                    <uc:UCTextInput Placeholder="Этаж"
+                                    x:Name="tiFloorApartment"/>
+                    <uc:UCTextInput Placeholder="Количество комнат"
+                                    x:Name="tiCountOfRoomApartment"/>
+                    <uc:UCTextInput Placeholder="Площадь"
+                                    x:Name="tiAreaApartment"
+                                    IsDigit="True"/>
                 </StackPanel>
+                
                 <StackPanel x:Name="panelTypeHouse"
                             Visibility="Collapsed">
-                    <TextBlock Text="Информация:"/>
-                    <uc:UCTextInput Placeholder="Количество этажей"/>
-                    <uc:UCTextInput Placeholder="Количество комнат"/>
-                    <uc:UCTextInput Placeholder="Площадь"/>
+                    <TextBlock Text="Информация:"
+                               Style="{StaticResource TextBoxStyle}"/>
+                    <uc:UCTextInput Placeholder="Количество этажей"
+                                    x:Name="tiCountOfFloorHouse"/>
+                    <uc:UCTextInput Placeholder="Количество комнат"
+                                    x:Name="tiCountOfRoomHouse"/>
+                    <uc:UCTextInput Placeholder="Площадь"
+                                    x:Name="tiAreaHouse"
+                                    IsDigit="True"/>
                 </StackPanel>
+                
                 <StackPanel x:Name="panelTypeLandPlot"
                             Visibility="Collapsed">
-                    <TextBlock Text="Информация:"/>
-                    <uc:UCTextInput Placeholder="Площадь"/>
+                    <TextBlock Text="Информация:"
+                               Style="{StaticResource TextBoxStyle}"/>
+                    <uc:UCTextInput Placeholder="Площадь"
+                                    x:Name="tiAreaLandPlot"
+                                    IsDigit="True"/>
                 </StackPanel>
+                
                 <StackPanel x:Name="panelAddress"
                             Visibility="Collapsed">
-                    <TextBlock Text="Адресс:"/>
-                    <uc:UCTextInput Placeholder="Город"/>
-                    <uc:UCTextInput Placeholder="Улица"/>
-                    <uc:UCTextInput Placeholder="Номер дома"/>
-                    <uc:UCTextInput Placeholder="Номер квартиры"/>
+                    <TextBlock Text="Адресс:"
+                               Style="{StaticResource TextBoxStyle}"/>
+                    <uc:UCTextInput Placeholder="Город"
+                                    x:Name="tiCity"/>
+                    <uc:UCTextInput Placeholder="Улица"
+                                    x:Name="tiStreet"/>
+                    <uc:UCTextInput Placeholder="Номер дома"
+                                    x:Name="tiHouseNumber"/>
+                    <uc:UCTextInput Placeholder="Номер квартиры"
+                                    x:Name="tiApartmentNumber"/>
                 </StackPanel>
+                
                 <StackPanel x:Name="panelCoordinate"
                             Visibility="Collapsed">
-                    <TextBlock Text="Координаты:"/>
-                    <uc:UCTextInput Placeholder="Широта"/>
-                    <uc:UCTextInput Placeholder="Долгота"/>
+                    <TextBlock Text="Координаты:"
+                               Style="{StaticResource TextBoxStyle}"/>
+                    <uc:UCTextInput Placeholder="Широта"
+                                    x:Name="tiLatitude"/>
+                    <uc:UCTextInput Placeholder="Долгота"
+                                    x:Name="tiLongitude"/>
                 </StackPanel>
+                
             </WrapPanel>
-            
+
+            <StackPanel Margin="10"
+                        Orientation="Vertical">
+
+                <StackPanel x:Name="panelBtnToCreate"
+                            Visibility="Collapsed" 
+                            Width="310">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                            Content="Добавить"
+                            x:Name="btnCreate"
+                            Click="btnCreate_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                            Content="Отмена"
+                            x:Name="btnCancelCreate"
+                            Click="btnCancelCreate_Click"/>
+                </StackPanel>
+
+                <StackPanel x:Name="panelBtnToEdit"
+                            Visibility="Collapsed"
+                            Width="310">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                            Content="Редактировать"
+                            x:Name="btnEdit"
+                            Click="btnEdit_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                            Content="Удалить"
+                            x:Name="btnDelete"
+                            Click="btnDelete_Click"/>
+                </StackPanel>
+
+                <StackPanel x:Name="panelBtnsEditSettings"
+                            Visibility="Collapsed"
+                            Width="310">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                            Content="Сохранить"
+                            x:Name="btnSaveChanges"
+                            Click="btnSaveChanges_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                            Content="Отмена"
+                            x:Name="btnCancelChanges"
+                            Click="btnCancelChanges_Click"/>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </Page>

@@ -1,7 +1,6 @@
 ﻿using RealEstateAgency.DBClient.Data.Models.db;
 using RealEstateAgency.DBClient.Extensions;
 using RealEstateAgency.Desktop.Pages.ClientPages;
-using RealEstateAgency.Desktop.Pages.RealtorPages;
 using RealEstateAgency.Desktop.Utilities;
 using System;
 using System.Collections.Generic;

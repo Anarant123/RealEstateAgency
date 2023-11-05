@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstateAgency.DBClient.Contracts.Requests;
+using RealEstateAgency.DBClient.Data.Models;
 using RealEstateAgency.DBClient.Data.Models.db;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace RealEstateAgency.DBClient.Extensions
         }
 
 
-        public static async Task<RealEstate> CreateRealEstates(this DBClient dbClient, CreateRealEstateRequest createRealEstate)
+        public static async Task<RealEstate> CreateRealEstate(this DBClient dbClient, CreateRealEstateRequest createRealEstate)
         {
             var realEstate = new RealEstate()
             {
@@ -94,6 +95,16 @@ namespace RealEstateAgency.DBClient.Extensions
                 dbClient.context.RealEstates.Remove(realEstate);
                 await dbClient.context.SaveChangesAsync();
             }
+        }
+
+        public static async Task<RealEstate> CreateRealEstate<T>(this DBClient dbClient, T realEstateObject, CreateRealEstateRequest createRealEstate) where T : RealEstateObject
+        {
+            var realEstate = await dbClient.CreateRealEstate(createRealEstate);
+
+            realEstateObject.RealEstateId = realEstate.Id;
+            dbClient.context.Set<T>().Add(realEstateObject);
+            await dbClient.context.SaveChangesAsync();
+            return realEstate;
         }
     }
 }

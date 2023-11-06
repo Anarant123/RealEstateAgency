@@ -1,0 +1,195 @@
+﻿<Page x:Class="RealEstateAgency.Desktop.Pages.NeedPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RealEstateAgency.Desktop.Pages"
+      xmlns:uc="clr-namespace:RealEstateAgency.Desktop.UserControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="NeedPage"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock" x:Key="TextBoxStyle">
+            <Setter Property="Foreground" Value="#78909C"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style TargetType="StackPanel">
+            <Setter Property="Width" Value="Auto"/>
+        </Style>
+
+
+    </Page.Resources>
+
+    <ScrollViewer>
+        <StackPanel x:Name="mainPanel">
+
+            <WrapPanel x:Name="panelAddPanel"
+                   Visibility="Collapsed">
+                <Button Style="{DynamicResource ButtonStyle}"
+                    Content="Добавить адресс"
+                    x:Name="btnAddAddress"
+                    Click="btnAddAddress_Click"
+                    Width="150"/>
+                <Button Style="{DynamicResource ButtonStyle}"
+                    Content="Сброс"
+                    x:Name="btnReset"
+                    Click="btnReset_Click"
+                    Width="150"/>
+            </WrapPanel>
+
+            <ComboBox x:Name="cbType"
+                  Style="{DynamicResource ComboBoxStyle}"
+                  Tag="Тип"
+                  Margin="15"
+                  HorizontalAlignment="Left"
+                  FontSize="18"
+                  SelectionChanged="cbType_SelectionChanged"
+                  Visibility="Collapsed">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <WrapPanel Margin="0">
+                <StackPanel x:Name="panelInfo">
+                    <TextBlock Text="Общие сведения:"
+                               Style="{StaticResource TextBoxStyle}"/>
+                    <ComboBox x:Name="cbClient"
+                              Style="{DynamicResource ComboBoxStyle}"
+                              Tag="Клиент"
+                              Margin="15,5,15,5"
+                              HorizontalAlignment="Left"
+                              FontSize="18">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FIO}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox x:Name="cbRealtor"
+                              Style="{DynamicResource ComboBoxStyle}"
+                              Tag="Риэлтор"
+                              Margin="15,5,15,5"
+                              HorizontalAlignment="Left"
+                              FontSize="18">       
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FIO}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <uc:UCTextInput Placeholder="Минимальная цена" 
+                                    x:Name="tiMinPrice"/>
+                    <uc:UCTextInput Placeholder="Максимальная цена" 
+                                    x:Name="tiMaxPrice"/>
+                </StackPanel>
+                
+                <StackPanel x:Name="panelTypeApartment"
+                        Visibility="Collapsed">
+                    <TextBlock Text="Информация:"
+                           Style="{StaticResource TextBoxStyle}"/>
+                    <uc:UCTextInput Placeholder="Минимальная площадь" 
+                                    x:Name="tiMinAreaApartment"/>
+                    <uc:UCTextInput Placeholder="Максимальная площадь" 
+                                    x:Name="tiMaxAreaApartment"/>
+                    <uc:UCTextInput Placeholder="Минимальный этаж" 
+                                    x:Name="tiMinFloorApartment"/>
+                    <uc:UCTextInput Placeholder="Максимальный этаж" 
+                                    x:Name="tiMaxFloorApartment"/>
+                    <uc:UCTextInput Placeholder="Минимальное кол-во комнат" 
+                                    x:Name="tiMinCountOfRoomApartment"/>
+                    <uc:UCTextInput Placeholder="Максимальное кол-во комнат" 
+                                    x:Name="tiMaxCountOfRoomApartment"/>
+                </StackPanel>
+
+                <StackPanel x:Name="panelTypeHouse"
+                        Visibility="Collapsed">
+                    <TextBlock Text="Информация:"
+                           Style="{StaticResource TextBoxStyle}"/>
+                    <uc:UCTextInput Placeholder="Минимальная площадь" 
+                                    x:Name="tiMinAreaHouse"/>
+                    <uc:UCTextInput Placeholder="Максимальная площадь" 
+                                    x:Name="tiMaxAreaHouse"/>
+                    <uc:UCTextInput Placeholder="Минимальная этажность" x:Name="tiMinCountOfFloorHouse"/>
+                    <uc:UCTextInput Placeholder="Максимальная этажность" x:Name="tiMaxCountOfFloorHouse"/>
+                    <uc:UCTextInput Placeholder="Минимальное кол-во комнат" x:Name="tiMinCountOfRoomHouse"/>
+                    <uc:UCTextInput Placeholder="Максимальное кол-во комнат" x:Name="tiMaxCountOfRoomHouse"/>
+                </StackPanel>
+
+                <StackPanel x:Name="panelTypeLandPlot"
+                        Visibility="Collapsed">
+                    <TextBlock Text="Информация:"
+                           Style="{StaticResource TextBoxStyle}"/>
+                    <uc:UCTextInput Placeholder="Минимальная площадь" 
+                                    x:Name="tiMinAreaLandPlot"/>
+                    <uc:UCTextInput Placeholder="Максимальная площадь" 
+                                    x:Name="tiMaxAreaLandPlot"/>
+                </StackPanel>
+
+                <StackPanel x:Name="panelAddress"
+                        Visibility="Collapsed">
+                    <TextBlock Text="Адресс:"
+                           Style="{StaticResource TextBoxStyle}"/>
+                    <uc:UCTextInput Placeholder="Город"
+                                x:Name="tiCity"/>
+                    <uc:UCTextInput Placeholder="Улица"
+                                x:Name="tiStreet"/>
+                    <uc:UCTextInput Placeholder="Номер дома"
+                                x:Name="tiHouseNumber"/>
+                    <uc:UCTextInput Placeholder="Номер квартиры"
+                                x:Name="tiApartmentNumber"/>
+                </StackPanel>
+            </WrapPanel>
+
+            <StackPanel Margin="10"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Left">
+                <StackPanel x:Name="panelBtnToCreate"
+                        Visibility="Collapsed" 
+                        Width="310">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Добавить"
+                        x:Name="btnCreate"
+                        Click="btnCreate_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Отмена"
+                        x:Name="btnCancelCreate"
+                        Click="btnCancelCreate_Click"/>
+                </StackPanel>
+
+                <StackPanel x:Name="panelBtnToEdit"
+                        Visibility="Collapsed"
+                        Width="310">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Редактировать"
+                        x:Name="btnEdit"
+                        Click="btnEdit_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Удалить"
+                        x:Name="btnDelete"
+                        Click="btnDelete_Click"/>
+                </StackPanel>
+
+                <StackPanel x:Name="panelBtnsEditSettings"
+                        Visibility="Collapsed"
+                        Width="310">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Сохранить"
+                        x:Name="btnSaveChanges"
+                        Click="btnSaveChanges_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Отмена"
+                        x:Name="btnCancelChanges"
+                        Click="btnCancelChanges_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

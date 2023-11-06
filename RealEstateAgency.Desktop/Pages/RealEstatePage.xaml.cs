@@ -1,25 +1,11 @@
-﻿using RealEstateAgency.DBClient;
-using RealEstateAgency.DBClient.Contracts.Requests;
+﻿using RealEstateAgency.DBClient.Contracts.Requests;
 using RealEstateAgency.DBClient.Data.Models.db;
 using RealEstateAgency.DBClient.Extensions;
 using RealEstateAgency.Desktop.UserControls;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml;
-using System.Xml.Linq;
 
 namespace RealEstateAgency.Desktop.Pages
 {
@@ -41,7 +27,7 @@ namespace RealEstateAgency.Desktop.Pages
 
         public RealEstatePage(RealEstate realEstate)
         {
-            _realEstate = realEstate;
+            _realEstate = Context.dBClient!.GetRealEstate(realEstate.Id);
 
             InitializeComponent();
             panelBtnToEdit.Visibility = Visibility.Visible;
@@ -49,10 +35,10 @@ namespace RealEstateAgency.Desktop.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            cbType.ItemsSource = Context.dBClient.GetTypeOfRealEstates();
+            cbType.ItemsSource = Context.dBClient!.GetTypeOfRealEstates();
             if (_realEstate == null) return;
-                OnAppearing();
-            RemoveMessage();
+            OnAppearing();
+            RemoveMessage(mainPanel);
         }
 
         private void OnAppearing()
@@ -61,6 +47,7 @@ namespace RealEstateAgency.Desktop.Pages
             {
                 panelAddress.Visibility = Visibility.Visible;
                 var address = _realEstate.PropertyAddress;
+                tiCity.Text = address.City!;
                 tiStreet.Text = address.Street!;
                 tiHouseNumber.Text = address.HouseNumber!;
                 tiApartmentNumber.Text = address.ApartmentNumber!;
@@ -82,23 +69,35 @@ namespace RealEstateAgency.Desktop.Pages
                     tiFloorApartment.Text = _realEstate.Apartment!.Floor;
                     tiCountOfRoomApartment.Text = _realEstate.Apartment.CountRooms;
                     tiAreaApartment.Text = _realEstate.Apartment.Area.ToString()!;
+                    UCTextInput.ToCollapsed(panelTypeApartment);
                     break;
                 case 3:
                     panelTypeHouse.Visibility = Visibility.Visible;
                     tiCountOfFloorHouse.Text = _realEstate.House!.CountFloors;
                     tiCountOfRoomHouse.Text = _realEstate.House.CountRooms;
                     tiAreaHouse.Text = _realEstate.House.Area.ToString()!;
+                    UCTextInput.ToCollapsed(panelTypeHouse);
                     break;
                 case 4:
                     panelTypeLandPlot.Visibility = Visibility.Visible;
                     tiAreaLandPlot.Text = _realEstate.LandPlot!.Area.ToString()!;
+                    UCTextInput.ToCollapsed(panelTypeLandPlot);
                     break;
             }
-
         }
-        private void RemoveMessage()
+        private void RemoveMessage(DependencyObject parent)
         {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
 
+                if (child is UCTextInput ucTextInput)
+                {
+                    ucTextInput.RemoveMessage();
+                }
+
+                RemoveMessage(child);
+            }
         }
 
         private void btnAddAddress_Click(object sender, RoutedEventArgs e)
@@ -149,7 +148,6 @@ namespace RealEstateAgency.Desktop.Pages
 
         private async void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-
             var result = true;
             switch (cbType.SelectedIndex)
             {
@@ -167,8 +165,7 @@ namespace RealEstateAgency.Desktop.Pages
                     break;
             }
 
-            if (!result)
-                return;
+            if (!result) return;
 
             CreateRealEstateRequest createRealEstateRequest = new CreateRealEstateRequest()
             {
@@ -232,9 +229,27 @@ namespace RealEstateAgency.Desktop.Pages
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            //panelBtnsEditSettings.Visibility = Visibility.Visible;
-            //panelBtnToEdit.Visibility = Visibility.Collapsed;
-            //UCTextInput.ToEdit(panelForm);
+            panelBtnsEditSettings.Visibility = Visibility.Visible;
+            panelBtnToEdit.Visibility = Visibility.Collapsed;
+
+            if (_realEstate.PropertyAddress != null)
+                UCTextInput.ToEdit(panelAddress);
+
+            if (_realEstate.Coordinates != null)
+                UCTextInput.ToEdit(panelCoordinate);
+
+            switch (_realEstate.TypeId)
+            {
+                case 2: 
+                    UCTextInput.ToEdit(panelTypeApartment);
+                    break;
+                case 3: 
+                    UCTextInput.ToEdit(panelTypeHouse);
+                    break;
+                case 4: 
+                    UCTextInput.ToEdit(panelTypeLandPlot);
+                    break;
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -245,40 +260,94 @@ namespace RealEstateAgency.Desktop.Pages
 
         private async void btnSaveChanges_Click(object sender, RoutedEventArgs e)
         {
-            //var result = true;
-            //if (!UCTextInput.CheckPanelForm(panelForm))
-            //    result = false;
+            var result = true;
+            switch (_realEstate.TypeId)
+            {
+                case 2:
+                    if (!UCTextInput.CheckPanelForm(panelTypeApartment))
+                        result = false;
+                    break;
+                case 3:
+                    if (!UCTextInput.CheckPanelForm(panelTypeHouse))
+                        result = false;
+                    break;
+                case 4:
+                    if (!UCTextInput.CheckPanelForm(panelTypeLandPlot))
+                        result = false;
+                    break;
+            }
 
-            //if (int.Parse(tiShare.Text) < 0 || int.Parse(tiShare.Text) > 100)
-            //{
-            //    tiShare.SetMessage("Значение должно быть от 0 до 100", false);
-            //    result = false;
-            //}
+            if (!result) return;
 
-            //if (!result)
-            //    return;
+            UpdateRealEstateRequest updateRealEstate = new UpdateRealEstateRequest()
+            {
+                Id = _realEstate.Id,
+                Coordinates = _realEstate.Coordinates,
+                PropertyAddress = _realEstate.PropertyAddress,
+                Apartment = _realEstate.Apartment,
+                House = _realEstate.House,
+                LandPlot = _realEstate.LandPlot,
+            };
 
-            //UpdateRealtorRequest updateRealtorRequest = new UpdateRealtorRequest()
-            //{
-            //    Id = _realtor.Id,
-            //    Name = tiName.Text,
-            //    LastName = tiLastName.Text,
-            //    MiddleName = tiMiddleName.Text,
-            //    ShareCommission = int.Parse(tiShare.Text),
-            //};
+            if (updateRealEstate.Coordinates != null)
+            {
+                updateRealEstate.Coordinates.Latitude = double.Parse(tiLatitude.Text);
+                updateRealEstate.Coordinates.Longitude = double.Parse(tiLongitude.Text);
+            }
 
-            //var realtor = await Context.dBClient.UpdateRealtor(updateRealtorRequest);
+            if (updateRealEstate.PropertyAddress != null)
+            {
+                updateRealEstate.PropertyAddress.City = tiCity.Text;
+                updateRealEstate.PropertyAddress.Street = tiStreet.Text;
+                updateRealEstate.PropertyAddress.HouseNumber = tiHouseNumber.Text;
+                updateRealEstate.PropertyAddress.ApartmentNumber = tiApartmentNumber.Text;
+            }
 
-            //NavigationService.Navigate(new NullPage());
-            //NavigationService.Navigate(new RealtorPage(realtor));
+            switch (_realEstate.Type.Id)
+            {
+                case 2:
+                    updateRealEstate.Apartment.Floor = tiFloorApartment.Text;
+                    updateRealEstate.Apartment.CountRooms = tiCountOfRoomApartment.Text;
+                    updateRealEstate.Apartment.Area = double.Parse(tiAreaApartment.Text);
+                    break;
+                case 3:
+                    updateRealEstate.House.CountFloors = tiCountOfFloorHouse.Text;
+                    updateRealEstate.House.CountRooms = tiCountOfRoomHouse.Text;
+                    updateRealEstate.House.Area = double.Parse(tiAreaHouse.Text);
+                    break;
+                case 4:
+                    updateRealEstate.LandPlot.Area = double.Parse(tiAreaLandPlot.Text);
+                    break;
+            }
+
+            var realEstate = await Context.dBClient.UpdateRealEstate(updateRealEstate);
+            NavigationService.Navigate(new NullPage());
+            NavigationService.Navigate(new RealEstatePage(realEstate));
         }
 
         private void btnCancelChanges_Click(object sender, RoutedEventArgs e)
         {
-            //OnAppearing();
-            //panelBtnToEdit.Visibility = Visibility.Visible;
-            //panelBtnsEditSettings.Visibility = Visibility.Collapsed;
-            //UCTextInput.ToCollapsed(panelForm);
+            OnAppearing();
+            panelBtnToEdit.Visibility = Visibility.Visible;
+            panelBtnsEditSettings.Visibility = Visibility.Collapsed;
+            if (_realEstate.PropertyAddress != null)
+                UCTextInput.ToCollapsed(panelAddress);
+
+            if (_realEstate.Coordinates != null)
+                UCTextInput.ToCollapsed(panelCoordinate);
+
+            switch (_realEstate.TypeId)
+            {
+                case 2:
+                    UCTextInput.ToCollapsed(panelTypeApartment);
+                    break;
+                case 3:
+                    UCTextInput.ToCollapsed(panelTypeHouse);
+                    break;
+                case 4:
+                    UCTextInput.ToCollapsed(panelTypeLandPlot);
+                    break;
+            }
         }
     }
 }

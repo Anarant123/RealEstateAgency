@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstateAgency.DBClient.Contracts.Requests;
+using RealEstateAgency.DBClient.Data.Models;
 using RealEstateAgency.DBClient.Data.Models.db;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace RealEstateAgency.DBClient.Extensions
 {
     public static class NeedExtensions
     {
-        public static async Task<Need> GetNeed(this DBClient dbClient, int id)
+        public static Need GetNeed(this DBClient dbClient, int id)
         {
-            return await dbClient.context.Needs.FirstOrDefaultAsync(c => c.Id == id);
+            return dbClient.context.Needs.Find(id);
         }
 
         public static List<Need> GetNeeds(this DBClient dbClient)
@@ -100,6 +101,16 @@ namespace RealEstateAgency.DBClient.Extensions
                 dbClient.context.Needs.Remove(need);
                 await dbClient.context.SaveChangesAsync();
             }
+        }
+
+        public static async Task<Need> CreateNeed<T>(this DBClient dbClient, T needObject, CreateNeedRequest createNeed) where T : NeedObject
+        {
+            var realEstate = await dbClient.CreateNeed(createNeed);
+
+            needObject.RealEstateId = realEstate.Id;
+            dbClient.context.Set<T>().Add(needObject);
+            await dbClient.context.SaveChangesAsync();
+            return realEstate;
         }
     }
 }

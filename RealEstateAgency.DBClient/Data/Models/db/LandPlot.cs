@@ -9,7 +9,5 @@ public partial class LandPlot : RealEstateObject
 
     public double? Area { get; set; }
 
-    // public int RealEstateId { get; set; }
-
     public virtual RealEstate RealEstate { get; set; } = null!;
 }

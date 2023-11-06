@@ -68,7 +68,7 @@ namespace RealEstateAgency.Desktop
 
         private void btnMenuNeed_Click(object sender, RoutedEventArgs e)
         {
-
+            frameMain.NavigationService.Navigate(new ListNeedPage());
         }
 
         private void btnMenuOffer_Click(object sender, RoutedEventArgs e)

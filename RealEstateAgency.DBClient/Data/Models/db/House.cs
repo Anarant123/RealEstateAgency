@@ -13,7 +13,5 @@ public partial class House : RealEstateObject
 
     public double? Area { get; set; }
 
-    //public int RealEstateId { get; set; }
-
     public virtual RealEstate RealEstate { get; set; } = null!;
 }

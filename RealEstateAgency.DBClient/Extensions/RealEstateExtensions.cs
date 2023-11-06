@@ -12,14 +12,23 @@ namespace RealEstateAgency.DBClient.Extensions
 {
     public static class RealEstateExtensions
     {
-        public static async Task<RealEstate> GetRealEstate(this DBClient dbClient, int id)
+        public static RealEstate GetRealEstate(this DBClient dbClient, int id)
         {
-            return await dbClient.context.RealEstates.FirstOrDefaultAsync(c => c.Id == id);
+            return dbClient.context.RealEstates
+                           .Include(x => x.Apartment)
+                           .Include(x => x.House)
+                           .Include(x => x.LandPlot)
+                           .Include(x => x.Coordinates)
+                           .Include(x => x.PropertyAddress)
+                           .First(x => x.Id == id);
         }
 
         public static List<RealEstate> GetRealEstates(this DBClient dbClient)
         {
-            return dbClient.context.RealEstates.ToList();
+            return dbClient.context.RealEstates
+                .Include(x => x.Type)
+                .Include(x => x.PropertyAddress)
+                .ToList();
         }
 
 
@@ -53,32 +62,22 @@ namespace RealEstateAgency.DBClient.Extensions
 
         public static async Task<RealEstate> UpdateRealEstate(this DBClient dbClient, UpdateRealEstateRequest updateRealEstate)
         {
-            var realEstate = dbClient.context.RealEstates.Find(updateRealEstate.Id);
+            var realEstate = dbClient.context.RealEstates
+                .Include(x => x.Apartment)
+                .Include(x => x.House)
+                .Include(x => x.LandPlot)
+                .Include(x => x.Coordinates)
+                .Include(x => x.PropertyAddress)
+                .First(x => x.Id == updateRealEstate.Id);
 
             if (realEstate != null)
             {
+
                 realEstate.Coordinates = updateRealEstate.Coordinates;
                 realEstate.PropertyAddress = updateRealEstate.PropertyAddress;
-                realEstate.Type = updateRealEstate.Type;
-
-                switch (realEstate.Type.Id)
-                {
-                    case 1:
-                        realEstate.Apartment = updateRealEstate.Apartment;
-                        realEstate.House = null;
-                        realEstate.LandPlot = null;
-                        break;
-                    case 2:
-                        realEstate.Apartment = null;
-                        realEstate.House = updateRealEstate.House;
-                        realEstate.LandPlot = null;
-                        break;
-                    case 3:
-                        realEstate.Apartment = null;
-                        realEstate.House = null;
-                        realEstate.LandPlot = updateRealEstate.LandPlot;
-                        break;
-                }
+                realEstate.Apartment = updateRealEstate.Apartment;
+                realEstate.House = updateRealEstate.House;
+                realEstate.LandPlot = updateRealEstate.LandPlot;
 
                 await dbClient.context.SaveChangesAsync();
                 return realEstate;
@@ -106,5 +105,7 @@ namespace RealEstateAgency.DBClient.Extensions
             await dbClient.context.SaveChangesAsync();
             return realEstate;
         }
+
+
     }
 }

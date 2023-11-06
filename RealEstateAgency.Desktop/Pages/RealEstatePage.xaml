@@ -25,7 +25,7 @@
     </Page.Resources>
 
     <ScrollViewer>
-        <StackPanel>
+        <StackPanel x:Name="mainPanel">
             
             <WrapPanel x:Name="panelAddPanel"
                        Visibility="Collapsed">
@@ -125,7 +125,8 @@
             </WrapPanel>
 
             <StackPanel Margin="10"
-                        Orientation="Vertical">
+                        Orientation="Vertical"
+                        HorizontalAlignment="Left">
 
                 <StackPanel x:Name="panelBtnToCreate"
                             Visibility="Collapsed" 

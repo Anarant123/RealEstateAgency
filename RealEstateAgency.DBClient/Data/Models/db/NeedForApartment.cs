@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RealEstateAgency.DBClient.Data.Models.db;
 
-public partial class NeedForApartment
+public partial class NeedForApartment : NeedObject
 {
     public int Id { get; set; }
 
@@ -18,8 +18,6 @@ public partial class NeedForApartment
     public string MinCountRooms { get; set; } = null!;
 
     public string MaxCountRooms { get; set; } = null!;
-
-    public int NeedId { get; set; }
 
     public virtual Need Need { get; set; } = null!;
 }

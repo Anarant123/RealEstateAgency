@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace RealEstateAgency.DBClient.Data.Models.db;
 
-namespace RealEstateAgency.DBClient.Data.Models.db;
-
-public partial class Realtor
+public partial class Realtor : Person
 {
     public int Id { get; set; }
-
-    public string Name { get; set; } = null!;
-
-    public string LastName { get; set; } = null!;
-
-    public string MiddleName { get; set; } = null!;
 
     public int? ShareCommission { get; set; }
 

@@ -13,14 +13,13 @@ namespace RealEstateAgency.DBClient.Contracts.Requests
 
         public virtual Apartment? Apartment { get; set; }
 
-        public virtual Сoordinate? Coordinates { get; set; }
-
         public virtual House? House { get; set; }
 
         public virtual LandPlot? LandPlot { get; set; }
 
+        public virtual Сoordinate? Coordinates { get; set; }
+
         public virtual PropertyAddress? PropertyAddress { get; set; }
 
-        public virtual TypeOfRealEstate Type { get; set; } = null!;
     }
 }

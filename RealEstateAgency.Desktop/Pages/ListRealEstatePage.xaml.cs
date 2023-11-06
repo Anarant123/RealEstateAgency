@@ -1,4 +1,7 @@
-﻿using System;
+﻿using RealEstateAgency.DBClient.Data.Models.db;
+using RealEstateAgency.DBClient.Extensions;
+using RealEstateAgency.Desktop.Pages.ClientPages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +26,20 @@ namespace RealEstateAgency.Desktop.Pages
         public ListRealEstatePage()
         {
             InitializeComponent();
+            lvRealestate.ItemsSource = Context.dBClient.GetRealEstates();
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new RealEstatePage());
+        }
+
+        private void lvRealestate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvRealestate.SelectedItem is RealEstate selectedRealEstate)
+            {
+                NavigationService.Navigate(new RealEstatePage(selectedRealEstate));
+            }
         }
     }
 }

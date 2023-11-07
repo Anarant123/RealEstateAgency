@@ -12,35 +12,41 @@
         <Style TargetType="TextBlock" x:Key="TextBlockStyle">
             <Setter Property="Foreground" Value="#78909C"/>
             <Setter Property="FontSize" Value="24"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </Page.Resources>
 
-    <StackPanel>
-        <DockPanel>
-            <WrapPanel DockPanel.Dock="Left">
-                <uc:UCTextInput Placeholder="ФИО"
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <StackPanel>
+            <DockPanel>
+                <WrapPanel DockPanel.Dock="Left">
+                    <uc:UCTextInput Placeholder="ФИО"
                                 x:Name="tiFullName"
                                 NotNeedMessage="True"/>
-                <Button Style="{DynamicResource ButtonStyle}"
+                    <Button Style="{DynamicResource ButtonStyle}"
                         Content="Поиск"
                         x:Name="btnSearch"
                         Click="btnSearch_Click"
                         Width="100"/>
-                <Button Style="{DynamicResource ButtonStyle}"
+                    <Button Style="{DynamicResource ButtonStyle}"
                         Content="Сбросить"
                         x:Name="btnResetSearch"
                         Click="btnResetSearch_Click"
                         Width="100"/>
-            </WrapPanel>
-            <Button Style="{DynamicResource ButtonStyle}"
+                </WrapPanel>
+                <Button Style="{DynamicResource ButtonStyle}"
                     Content="Добавить"
                     x:Name="btnCreate"
                     Click="btnCreate_Click"
                     Width="100"
                     HorizontalAlignment="Right"/>
-        </DockPanel>
-        <ListView x:Name="lvPeople" 
+            </DockPanel>
+            <ListView x:Name="lvPeople" 
                   DockPanel.Dock="Top"
                   HorizontalAlignment="Left"
                   BorderThickness="0 0 0 0"
@@ -60,9 +66,37 @@
                         <TextBlock Text="{Binding Name}" Style="{StaticResource TextBlockStyle}"/>
                         <TextBlock Text="{Binding LastName}" Style="{StaticResource TextBlockStyle}"/>
                         <TextBlock Text="{Binding MiddleName}" Style="{StaticResource TextBlockStyle}"/>
+
+                        <TextBlock Text="тел." Margin="5,5,1,5">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=lbPhoneNumber, Path=Text}" Value="">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock x:Name="lbPhoneNumber" Text="{Binding PhoneNumber}" Style="{StaticResource TextBlockStyle}"/>
+
+                        <TextBlock Text="почта" Margin="5,5,1,5">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=lbEmail, Path=Text}" Value="">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock x:Name="lbEmail" Text="{Binding Email}" Style="{StaticResource TextBlockStyle}"/>
                     </WrapPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+            
     </StackPanel>
+        </ScrollViewer>
 </Page>

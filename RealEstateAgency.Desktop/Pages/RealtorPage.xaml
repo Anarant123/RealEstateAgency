@@ -9,52 +9,153 @@
       Title="RealtorPage"
       Loaded="Page_Loaded">
 
-    <StackPanel Orientation="Vertical"
-                HorizontalAlignment="Center">
-        <StackPanel x:Name="panelForm">
-            <uc:UCTextInput x:Name="tiName" 
-                            Placeholder="Имя"/>
-            <uc:UCTextInput x:Name="tiLastName" 
-                            Placeholder="Фамилия"/>
-            <uc:UCTextInput x:Name="tiMiddleName" 
-                            Placeholder="Отчество"/>
-            <uc:UCTextInput x:Name="tiShare"
-                            Placeholder="Доля от комиссии"
-                            IsNullable="True"
-                            IsDigit="True"/>
-        </StackPanel>
-        <StackPanel x:Name="panelBtnToCreate"
-                    Visibility="Collapsed">
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Добавить"
-                    x:Name="btnCreate"
-                    Click="btnCreate_Click"/>
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Отмена"
-                    x:Name="btnCancelCreate"
-                    Click="btnCancelCreate_Click"/>
-        </StackPanel>
-        <StackPanel x:Name="panelBtnToEdit"
-                    Visibility="Collapsed">
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Редактировать"
-                    x:Name="btnEdit"
-                    Click="btnEdit_Click"/>
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Удалить"
-                    x:Name="btnDelete"
-                    Click="btnDelete_Click"/>
-        </StackPanel>
-        <StackPanel x:Name="panelBtnsEditSettings"
-                    Visibility="Collapsed">
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Сохранить"
-                    x:Name="btnSaveChanges"
-                    Click="btnSaveChanges_Click"/>
-            <Button Style="{DynamicResource ButtonStyle}" 
-                    Content="Отмена"
-                    x:Name="btnCancelChanges"
-                    Click="btnCancelChanges_Click"/>
-        </StackPanel>
-    </StackPanel>
+    <Page.Resources>
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+            <Setter Property="Foreground" Value="#78909C"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <DockPanel>
+            <StackPanel Orientation="Vertical"
+                        DockPanel.Dock="Left"
+                    HorizontalAlignment="Center">
+                <StackPanel x:Name="panelForm">
+                    <uc:UCTextInput x:Name="tiName" 
+                                Placeholder="Имя"/>
+                    <uc:UCTextInput x:Name="tiLastName" 
+                                Placeholder="Фамилия"/>
+                    <uc:UCTextInput x:Name="tiMiddleName" 
+                                Placeholder="Отчество"/>
+                    <uc:UCTextInput x:Name="tiShare"
+                                Placeholder="Доля от комиссии"
+                                IsNullable="True"
+                                IsDigit="True"/>
+                </StackPanel>
+                <StackPanel x:Name="panelBtnToCreate"
+                        Visibility="Collapsed">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Добавить"
+                        x:Name="btnCreate"
+                        Click="btnCreate_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Отмена"
+                        x:Name="btnCancelCreate"
+                        Click="btnCancelCreate_Click"/>
+                </StackPanel>
+                <StackPanel x:Name="panelBtnToEdit"
+                        Visibility="Collapsed">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Редактировать"
+                        x:Name="btnEdit"
+                        Click="btnEdit_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Удалить"
+                        x:Name="btnDelete"
+                        Click="btnDelete_Click"/>
+                </StackPanel>
+                <StackPanel x:Name="panelBtnsEditSettings"
+                        Visibility="Collapsed">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Сохранить"
+                        x:Name="btnSaveChanges"
+                        Click="btnSaveChanges_Click"/>
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Отмена"
+                        x:Name="btnCancelChanges"
+                        Click="btnCancelChanges_Click"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel x:Name="panelNF">
+                <TextBlock Text="Потребности:" Style="{StaticResource TextBlockStyle}"/>
+                <ListView x:Name="lvNeed" 
+              DockPanel.Dock="Top"
+              HorizontalAlignment="Left"
+              BorderThickness="0 0 0 0"
+              Margin="10"
+              BorderBrush="Transparent"
+              Background="Transparent"
+              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="Stretch"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Width="1000">
+                                <TextBlock Text="{Binding Type.Name}" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="{Binding PropertyAddress.City}" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="{Binding PropertyAddress.Street}" Style="{StaticResource TextBlockStyle}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <TextBlock Text="Предложения:" Style="{StaticResource TextBlockStyle}"/>
+                <ListView x:Name="lvOffer" 
+              DockPanel.Dock="Top"
+              HorizontalAlignment="Left"
+              BorderThickness="0 0 0 0"
+              Margin="10"
+              BorderBrush="Transparent"
+              Background="Transparent"
+              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="Stretch"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Width="1000">
+                                <TextBlock Text="{Binding RealEstate.Type.Name}" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="{Binding Price}" Style="{StaticResource TextBlockStyle}"/>
+                                <TextBlock Text="{Binding PropertyAddress.Street}" Style="{StaticResource TextBlockStyle}"/>
+
+                                <TextBlock Text="{Binding RealEstate.PropertyAddress.City}" Style="{StaticResource TextBlockStyle}"/>
+
+                                <TextBlock Text="ул." Margin="5,5,1,5">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=lbStreet, Path=Text}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock x:Name="lbStreet" Text="{Binding RealEstate.PropertyAddress.Street}" Style="{StaticResource TextBlockStyle}"/>
+
+                                <TextBlock Margin="5,5,1,5" Text="{Binding RealEstate.PropertyAddress.HouseNumber}" Style="{StaticResource TextBlockStyle}"/>
+
+                                <TextBlock Text="кв." Margin="5,5,1,5">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=lbApartmentNumber, Path=Text}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock x:Name="lbApartmentNumber" Text="{Binding RealEstate.PropertyAddress.ApartmentNumber}" Style="{StaticResource TextBlockStyle}"/>
+
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </DockPanel>
+    </ScrollViewer>
 </Page>

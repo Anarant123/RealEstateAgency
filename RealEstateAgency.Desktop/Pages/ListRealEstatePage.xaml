@@ -12,10 +12,16 @@
         <Style TargetType="TextBlock" x:Key="TextBlockStyle">
             <Setter Property="Foreground" Value="#78909C"/>
             <Setter Property="FontSize" Value="24"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </Page.Resources>
 
+        <ScrollViewer VerticalScrollBarVisibility="Hidden">
     <StackPanel>
         <DockPanel>
             <WrapPanel DockPanel.Dock="Left">
@@ -38,7 +44,8 @@
                 HorizontalAlignment="Right"/>
             
         </DockPanel>
-        <ListView x:Name="lvRealestate" 
+
+            <ListView x:Name="lvRealestate" 
                   DockPanel.Dock="Top"
                   HorizontalAlignment="Left"
                   BorderThickness="0 0 0 0"
@@ -47,21 +54,121 @@
                   Background="Transparent"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   SelectionChanged="lvRealestate_SelectionChanged">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel HorizontalAlignment="Stretch"></StackPanel>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <WrapPanel Width="1000">
-                        <TextBlock Text="{Binding Type.Name}" Style="{StaticResource TextBlockStyle}"/>
-                        <TextBlock Text="{Binding PropertyAddress.City}" Style="{StaticResource TextBlockStyle}"/>
-                        <TextBlock Text="{Binding PropertyAddress.Street}" Style="{StaticResource TextBlockStyle}"/>
-                        <TextBlock Text="{Binding PropertyAddress.HouseNumber}" Style="{StaticResource TextBlockStyle}"/>
-                    </WrapPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Stretch"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Width="1000">
+                            <TextBlock Text="{Binding Type.Name}" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="{Binding PropertyAddress.City}" Style="{StaticResource TextBlockStyle}"/>
+
+                            <TextBlock Text="ул." Margin="5,5,1,5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=lbStreet, Path=Text}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock x:Name="lbStreet" Text="{Binding PropertyAddress.Street}" Style="{StaticResource TextBlockStyle}"/>
+
+                            <TextBlock Margin="5,5,1,5" Text="{Binding PropertyAddress.HouseNumber}" Style="{StaticResource TextBlockStyle}"/>
+
+                            <TextBlock Text="кв." Margin="5,5,1,5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=lbApartmentNumber, Path=Text}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock x:Name="lbApartmentNumber" Text="{Binding PropertyAddress.ApartmentNumber}" Style="{StaticResource TextBlockStyle}"/>
+
+                            <TextBlock Text="площадь" Margin="5,5,1,5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=lbAreaA, Path=Text}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock x:Name="lbAreaA" Text="{Binding Apartment.Area}" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="кв м" Margin="1,5,5,5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=lbAreaA, Path=Text}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <TextBlock Text="площадь" Margin="5,5,1,5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=lbAreaH, Path=Text}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock x:Name="lbAreaH" Text="{Binding House.Area}" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="кв м" Margin="1,5,5,5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=lbAreaH, Path=Text}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <TextBlock Text="площадь" Margin="5,5,1,5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=lbAreaL, Path=Text}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock x:Name="lbAreaL" Text="{Binding LandPlot.Area}" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="кв м" Margin="1,5,5,5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=lbAreaL, Path=Text}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
     </StackPanel>
+        </ScrollViewer>
 </Page>

@@ -29,6 +29,7 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
         {
             InitializeComponent();
             panelBtnToCreate.Visibility = Visibility.Visible;
+            panelNF.Visibility = Visibility.Collapsed;
         }
 
         public ClientPage(Client client)
@@ -37,6 +38,18 @@ namespace RealEstateAgency.Desktop.Pages.ClientPages
 
             InitializeComponent();
             panelBtnToEdit.Visibility = Visibility.Visible;
+
+            var needs = Context.dBClient.GetNeeds().Where(x => x.ClientId == _client.Id);
+            var offers = Context.dBClient.GetOffers().Where(x => x.ClientId == _client.Id);
+            if (needs.Any() || offers.Any()) 
+            {
+                lvNeed.ItemsSource = needs;
+                lvOffer.ItemsSource = offers;
+            }
+            else
+            {
+                panelNF.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

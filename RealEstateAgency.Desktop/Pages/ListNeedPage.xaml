@@ -12,10 +12,16 @@
         <Style TargetType="TextBlock" x:Key="TextBlockStyle">
             <Setter Property="Foreground" Value="#78909C"/>
             <Setter Property="FontSize" Value="24"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </Page.Resources>
 
+        <ScrollViewer VerticalScrollBarVisibility="Hidden">
     <StackPanel>
         <DockPanel>
             <WrapPanel DockPanel.Dock="Left">
@@ -38,7 +44,7 @@
                     HorizontalAlignment="Right"/>
 
         </DockPanel>
-        <ListView x:Name="lvNeed" 
+            <ListView x:Name="lvNeed" 
           DockPanel.Dock="Top"
           HorizontalAlignment="Left"
           BorderThickness="0 0 0 0"
@@ -58,10 +64,10 @@
                         <TextBlock Text="{Binding Type.Name}" Style="{StaticResource TextBlockStyle}"/>
                         <TextBlock Text="{Binding PropertyAddress.City}" Style="{StaticResource TextBlockStyle}"/>
                         <TextBlock Text="{Binding PropertyAddress.Street}" Style="{StaticResource TextBlockStyle}"/>
-                        <TextBlock Text="{Binding PropertyAddress.HouseNumber}" Style="{StaticResource TextBlockStyle}"/>
                     </WrapPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView> 
     </StackPanel>
+        </ScrollViewer>
 </Page>

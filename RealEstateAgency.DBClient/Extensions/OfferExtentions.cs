@@ -12,14 +12,22 @@ namespace RealEstateAgency.DBClient.Extensions
 {
     public static class OfferExtentions
     {
-        public static async Task<Offer> GetOffer(this DBClient dbClient, int id)
+        public static Offer GetOffer(this DBClient dbClient, int id)
         {
-            return await dbClient.context.Offers.FirstOrDefaultAsync(c => c.Id == id);
+            return dbClient.context.Offers.First(c => c.Id == id);
         }
 
         public static List<Offer> GetOffers(this DBClient dbClient)
         {
-            return dbClient.context.Offers.ToList();
+            return dbClient.context.Offers
+                .Include(x => x.Client)
+                .Include(x => x.RealEstate)
+                    .ThenInclude(x => x.Type)
+                .Include(x => x.RealEstate)
+                    .ThenInclude(x => x.PropertyAddress)
+                .Include(x => x.Realtor)
+                .Include(x => x.Deals)
+                .ToList();
         }
 
 
@@ -56,7 +64,7 @@ namespace RealEstateAgency.DBClient.Extensions
             return null;
         }
 
-        public static async void DeleteOffer(this DBClient dbClient, int id)
+        public static async Task DeleteOffer(this DBClient dbClient, int id)
         {
             var offer = dbClient.context.Offers.Find(id);
 

@@ -1,4 +1,5 @@
-﻿using RealEstateAgency.DBClient.Contracts.Requests;
+﻿using RealEstateAgency.DBClient;
+using RealEstateAgency.DBClient.Contracts.Requests;
 using RealEstateAgency.DBClient.Data.Models.db;
 using RealEstateAgency.DBClient.Extensions;
 using RealEstateAgency.Desktop.UserControls;
@@ -29,6 +30,7 @@ namespace RealEstateAgency.Desktop.Pages
         {
             InitializeComponent();
             panelBtnToCreate.Visibility = Visibility.Visible;
+            panelNF.Visibility = Visibility.Collapsed;
         }
 
         public RealtorPage(Realtor realtor)
@@ -37,6 +39,18 @@ namespace RealEstateAgency.Desktop.Pages
 
             InitializeComponent();
             panelBtnToEdit.Visibility = Visibility.Visible;
+
+            var needs = Context.dBClient.GetNeeds().Where(x => x.ClientId == _realtor.Id);
+            var offers = Context.dBClient.GetOffers().Where(x => x.ClientId == _realtor.Id);
+            if (needs.Any() || offers.Any())
+            {
+                lvNeed.ItemsSource = needs;
+                lvOffer.ItemsSource = offers;
+            }
+            else
+            {
+                panelNF.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

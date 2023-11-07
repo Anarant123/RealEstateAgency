@@ -86,9 +86,11 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                     <uc:UCTextInput Placeholder="Минимальная цена" 
-                                    x:Name="tiMinPrice"/>
+                                    x:Name="tiMinPrice"
+                                    IsDigit="True"/>
                     <uc:UCTextInput Placeholder="Максимальная цена" 
-                                    x:Name="tiMaxPrice"/>
+                                    x:Name="tiMaxPrice"
+                                    IsDigit="True"/>
                 </StackPanel>
                 
                 <StackPanel x:Name="panelTypeApartment"

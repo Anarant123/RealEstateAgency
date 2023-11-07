@@ -85,12 +85,30 @@ namespace RealEstateAgency.DBClient.Extensions
             return null;
         }
 
-        public static async void DeleteRealEstate(this DBClient dbClient, int id)
+        public static async Task DeleteRealEstate(this DBClient dbClient, int id)
         {
-            var realEstate = dbClient.context.RealEstates.Find(id);
+            var realEstate = dbClient.context.RealEstates
+                           .Include(x => x.Apartment)
+                           .Include(x => x.House)
+                           .Include(x => x.LandPlot)
+                           .Include(x => x.Coordinates)
+                           .Include(x => x.PropertyAddress)
+                           .First(x => x.Id == id);
 
             if (realEstate != null)
             {
+                var a = realEstate.Apartment;
+                if (a != null)
+                    dbClient.context.Apartments.Remove(a);
+
+                var h = realEstate.House;
+                if (h != null)
+                    dbClient.context.Houses.Remove(h);
+
+                var l = realEstate.LandPlot;
+                if (l != null)
+                    dbClient.context.LandPlots.Remove(l);
+
                 dbClient.context.RealEstates.Remove(realEstate);
                 await dbClient.context.SaveChangesAsync();
             }

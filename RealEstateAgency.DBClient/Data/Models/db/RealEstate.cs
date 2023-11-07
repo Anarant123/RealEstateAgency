@@ -13,9 +13,9 @@ public partial class RealEstate
 
     public int? CoordinatesId { get; set; }
 
-    public virtual Apartment? Apartment { get; set; }
-
     public virtual Сoordinate? Coordinates { get; set; }
+
+    public virtual Apartment? Apartment { get; set; }
 
     public virtual House? House { get; set; }
 

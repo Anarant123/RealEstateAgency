@@ -73,7 +73,7 @@ namespace RealEstateAgency.Desktop
 
         private void btnMenuOffer_Click(object sender, RoutedEventArgs e)
         {
-
+            frameMain.NavigationService.Navigate(new ListOfferPage());
         }
     }
 }

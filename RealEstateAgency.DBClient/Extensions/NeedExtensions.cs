@@ -14,12 +14,30 @@ namespace RealEstateAgency.DBClient.Extensions
     {
         public static Need GetNeed(this DBClient dbClient, int id)
         {
-            return dbClient.context.Needs.Find(id);
+            return dbClient.context.Needs
+                .Include(x => x.PropertyAddress)
+                .Include(x => x.Client)
+                .Include(x => x.Realtor)
+                .Include(x => x.Deals)
+                .Include(x => x.Type)
+                .Include(x => x.NeedForApartments)
+                .Include(x => x.NeedForHomes)
+                .Include(x => x.NeedForLandPlots)
+                .First(x => x.Id == id);
         }
 
         public static List<Need> GetNeeds(this DBClient dbClient)
         {
-            return dbClient.context.Needs.ToList();
+            return dbClient.context.Needs
+                .Include(x => x.PropertyAddress)
+                .Include(x => x.Client)
+                .Include(x => x.Realtor)
+                .Include(x => x.Deals)
+                .Include(x => x.Type)
+                .Include(x => x.NeedForApartments)
+                .Include(x => x.NeedForHomes)
+                .Include(x => x.NeedForLandPlots)
+                .ToList();
         }
 
 
@@ -56,12 +74,19 @@ namespace RealEstateAgency.DBClient.Extensions
 
         public static async Task<Need> UpdateNeed(this DBClient dbClient, UpdateNeedRequest updateNeed)
         {
-            var need = dbClient.context.Needs.Find(updateNeed.Id);
+            var need = dbClient.context.Needs
+                .Include(x => x.PropertyAddress)
+                .Include(x => x.Client)
+                .Include(x => x.Realtor)
+                .Include(x => x.Deals)
+                .Include(x => x.Type)
+                .Include(x => x.NeedForApartments)
+                .Include(x => x.NeedForHomes)
+                .Include(x => x.NeedForLandPlots)
+                .First(x => x.Id == updateNeed.Id);
 
             if (need != null)
             {
-                need.Client = updateNeed.Client;
-                need.Realtor = updateNeed.Realtor;
                 need.Type = updateNeed.Type;
                 need.PropertyAddress = updateNeed.PropertyAddress;
                 need.MinPrice = updateNeed.MinPrice;
@@ -92,12 +117,33 @@ namespace RealEstateAgency.DBClient.Extensions
             return null;
         }
 
-        public static async void DeleteNeed(this DBClient dbClient, int id)
+        public static async Task DeleteNeed(this DBClient dbClient, int id)
         {
-            var need = dbClient.context.Needs.Find(id);
+            var need = dbClient.context.Needs
+                .Include(x => x.PropertyAddress)
+                .Include(x => x.Client)
+                .Include(x => x.Realtor)
+                .Include(x => x.Deals)
+                .Include(x => x.Type)
+                .Include(x => x.NeedForApartments)
+                .Include(x => x.NeedForHomes)
+                .Include(x => x.NeedForLandPlots)
+                .First(x => x.Id == id);
 
             if (need != null)
             {
+                var na = need.NeedForApartments.FirstOrDefault();
+                if (na != null)
+                    dbClient.context.NeedForApartments.Remove(na);
+
+                var nh = need.NeedForHomes.FirstOrDefault();
+                if (nh != null)
+                    dbClient.context.NeedForHomes.Remove(nh);
+
+                var nl = need.NeedForLandPlots.FirstOrDefault();
+                if (nl != null)
+                    dbClient.context.NeedForLandPlots.Remove(nl);
+
                 dbClient.context.Needs.Remove(need);
                 await dbClient.context.SaveChangesAsync();
             }
@@ -105,12 +151,12 @@ namespace RealEstateAgency.DBClient.Extensions
 
         public static async Task<Need> CreateNeed<T>(this DBClient dbClient, T needObject, CreateNeedRequest createNeed) where T : NeedObject
         {
-            var realEstate = await dbClient.CreateNeed(createNeed);
+            var need = await dbClient.CreateNeed(createNeed);
 
-            needObject.RealEstateId = realEstate.Id;
+            needObject.NeedId = need.Id;
             dbClient.context.Set<T>().Add(needObject);
             await dbClient.context.SaveChangesAsync();
-            return realEstate;
+            return need;
         }
     }
 }

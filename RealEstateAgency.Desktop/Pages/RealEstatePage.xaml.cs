@@ -252,10 +252,10 @@ namespace RealEstateAgency.Desktop.Pages
             }
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            Context.dBClient.DeleteRealEstate(_realEstate.Id);
-            NavigationService.Navigate(new ListPersonPage(1));
+            await Context.dBClient.DeleteRealEstate(_realEstate.Id);
+            NavigationService.Navigate(new ListRealEstatePage());
         }
 
         private async void btnSaveChanges_Click(object sender, RoutedEventArgs e)

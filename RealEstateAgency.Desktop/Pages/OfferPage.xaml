@@ -11,7 +11,7 @@
       Loaded="Page_Loaded">
 
     <Page.Resources>
-        <Style TargetType="TextBlock" x:Key="TextBoxStyle">
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
             <Setter Property="Foreground" Value="#78909C"/>
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -31,7 +31,7 @@
 
                 <StackPanel x:Name="panelInfo">
                     <TextBlock Text="Общие сведения:"
-                           Style="{StaticResource TextBoxStyle}"/>
+                           Style="{StaticResource TextBlockStyle}"/>
                     <ComboBox x:Name="cbClient"
                           Style="{DynamicResource ComboBoxStyle}"
                           Tag="Клиент"
@@ -117,7 +117,42 @@
                             x:Name="btnCancelChanges"
                             Click="btnCancelChanges_Click"/>
                 </StackPanel>
+
+                <StackPanel x:Name="panelDeal"
+                            Visibility="Collapsed"
+                            Width="310">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                            Content="Заключить сделку"
+                            x:Name="btnHaveDeal"
+                            Click="btnHaveDeal_Click"/>
+                </StackPanel>
             </StackPanel>
+
+            <TextBlock Text="Подходящие потребности:"
+                        Style="{StaticResource TextBlockStyle}"/>
+            <ListView x:Name="lvNeed" 
+                      HorizontalAlignment="Left"
+                      BorderThickness="0 0 0 0"
+                      Margin="10"
+                      BorderBrush="Transparent"
+                      Background="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      SelectionChanged="lvNeed_SelectionChanged">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Stretch"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Width="1000">
+                            <TextBlock Text="{Binding Type.Name}" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="{Binding PropertyAddress.City}" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="{Binding PropertyAddress.Street}" Style="{StaticResource TextBlockStyle}"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
     </ScrollViewer>
 </Page>

@@ -14,9 +14,5 @@ namespace RealEstateAgency.DBClient.Contracts.Requests
         public double SellerCommission { get; set; }
 
         public double BuyerCommission { get; set; }
-
-        public virtual Need Need { get; set; } = null!;
-
-        public virtual Offer Offer { get; set; } = null!;
     }
 }

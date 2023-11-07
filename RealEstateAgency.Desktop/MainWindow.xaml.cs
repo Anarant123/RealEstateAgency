@@ -75,5 +75,10 @@ namespace RealEstateAgency.Desktop
         {
             frameMain.NavigationService.Navigate(new ListOfferPage());
         }
+
+        private void btnMenuDeal_Click(object sender, RoutedEventArgs e)
+        {
+            frameMain.NavigationService.Navigate(new ListDealPage());
+        }
     }
 }

@@ -27,6 +27,7 @@ namespace RealEstateAgency.Desktop.Pages
     public partial class NeedPage : Page
     {
         private Need _need;
+        private Offer _offer;
         private bool IsNeedPropertyAddress;
         private class CBPerson<T> where T : Person
         {
@@ -54,6 +55,27 @@ namespace RealEstateAgency.Desktop.Pages
 
             InitializeComponent();
             panelBtnToEdit.Visibility = Visibility.Visible;
+
+            var offers = Context.dBClient.GetOffers().Where(x => x.RealEstate.TypeId == need.TypeId ).ToList();
+            if (need.PropertyAddress != null)
+            {
+                if (need.PropertyAddress.City != null)
+                    offers = offers.Where(x => x.RealEstate.PropertyAddress.City == need.PropertyAddress.City).ToList();
+                if (need.PropertyAddress.Street != null)
+                    offers = offers.Where(x => x.RealEstate.PropertyAddress.Street == need.PropertyAddress.Street).ToList();
+            }
+            offers = offers.Where(x => x.Price >= need.MinPrice && x.Price <= need.MaxPrice).ToList();
+
+            lvOffer.ItemsSource = offers;
+        }
+
+        public NeedPage(Need need, Offer offer)
+        {
+            _need = Context.dBClient!.GetNeed(need.Id);
+            _offer = Context.dBClient!.GetOffer(offer.Id);
+
+            InitializeComponent();
+            panelDeal.Visibility = Visibility.Visible;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -403,6 +425,27 @@ namespace RealEstateAgency.Desktop.Pages
         {
             IsNeedPropertyAddress = false;
             panelAddress.Visibility = Visibility.Collapsed;
+        }
+
+        private void lvOffer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvOffer.SelectedItem is Offer selectedOffer)
+            {
+                NavigationService.Navigate(new OfferPage(selectedOffer, _need));
+            }
+        }
+
+        private async void btnHaveDeal_Click(object sender, RoutedEventArgs e)
+        {
+            CreateDealRequest createDeal = new CreateDealRequest()
+            {
+                Offer = _offer,
+                Need = _need,
+            };
+
+            var deal = await Context.dBClient.CreateDeal(createDeal);
+            NavigationService.Navigate(new NullPage());
+            NavigationService.Navigate(new DealPage(deal));
         }
     }
 }

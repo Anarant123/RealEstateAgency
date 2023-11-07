@@ -27,6 +27,7 @@ namespace RealEstateAgency.Desktop.Pages
     public partial class OfferPage : Page
     {
         private Offer _offer;
+        private Need _need;
         private class CBPerson<T> where T : Person
         {
             public string FIO { get; set; }
@@ -78,6 +79,34 @@ namespace RealEstateAgency.Desktop.Pages
 
             InitializeComponent();
             panelBtnToEdit.Visibility = Visibility.Visible;
+
+            var needs = Context.dBClient.GetNeeds().Where(x => offer.RealEstate.TypeId == x.TypeId).ToList();
+            if (offer.RealEstate.PropertyAddress != null)
+            {
+                needs = needs.Where(x => x.PropertyAddress != null).ToList();
+                if (!needs.Any())
+                {
+                    needs = Context.dBClient.GetNeeds().Where(x => offer.RealEstate.TypeId == x.TypeId).ToList();
+                }
+                else
+                {
+                    if (offer.RealEstate.PropertyAddress.City != null)
+                        needs = needs.Where(x => offer.RealEstate.PropertyAddress.City == x.PropertyAddress.City).ToList();
+                    if (offer.RealEstate.PropertyAddress.Street != null)
+                        needs = needs.Where(x => offer.RealEstate.PropertyAddress.Street == x.PropertyAddress.Street).ToList();
+                }
+            }
+            needs = needs.Where(x => offer.Price >= x.MinPrice && offer.Price <= x.MaxPrice).ToList();
+
+            lvNeed.ItemsSource = needs;
+        }
+
+        public OfferPage(Offer offer, Need need)
+        {
+            _offer = Context.dBClient!.GetOffer(offer.Id);
+            _need = Context.dBClient!.GetNeed(need.Id);
+            InitializeComponent();
+            panelDeal.Visibility = Visibility.Visible;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -213,6 +242,27 @@ namespace RealEstateAgency.Desktop.Pages
             OnAppearing();
             panelBtnToEdit.Visibility = Visibility.Visible;
             panelBtnsEditSettings.Visibility = Visibility.Collapsed;
+        }
+
+        private void lvNeed_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvNeed.SelectedItem is Need selectedNeed)
+            {
+                NavigationService.Navigate(new NeedPage(selectedNeed, _offer));
+            }
+        }
+
+        private async void btnHaveDeal_Click(object sender, RoutedEventArgs e)
+        {
+            CreateDealRequest createDeal = new CreateDealRequest()
+            {
+                Offer = _offer,
+                Need = _need,
+            };
+
+            var deal = await Context.dBClient.CreateDeal(createDeal);
+            NavigationService.Navigate(new NullPage());
+            NavigationService.Navigate(new DealPage(deal));
         }
     }
 }

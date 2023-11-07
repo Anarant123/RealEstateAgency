@@ -24,7 +24,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Hidden">
     <StackPanel>
         <DockPanel>
-            <WrapPanel DockPanel.Dock="Left">
+            <!--<WrapPanel DockPanel.Dock="Left">
                 <uc:UCTextInput Placeholder="Организовать поиск"
                           x:Name="tiFullName"/>
                 <Button Style="{DynamicResource ButtonStyle}"
@@ -35,7 +35,7 @@
                     Content="Сбросить"
                     x:Name="btnResetSearch"
                     Width="100"/>
-            </WrapPanel>
+            </WrapPanel>-->
             <Button Style="{DynamicResource ButtonStyle}"
                 Content="Добавить"
                 x:Name="btnCreate"

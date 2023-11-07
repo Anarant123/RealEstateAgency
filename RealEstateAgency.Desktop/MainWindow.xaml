@@ -78,7 +78,11 @@
                         Content="Недвижимость"
                         x:Name="btnMenuRealEstate"
                         Click="btnMenuRealEstate_Click"/>
-                
+                <Button Style="{DynamicResource MenuButtonStyle}" 
+                        Content="Сделки"
+                        x:Name="btnMenuDeal"
+                        Click="btnMenuDeal_Click"/>   
+
             </WrapPanel>
             <Frame Grid.Row="2"
                    x:Name="frameMain"

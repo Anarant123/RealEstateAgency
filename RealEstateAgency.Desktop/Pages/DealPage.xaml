@@ -4,11 +4,69 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RealEstateAgency.Desktop.Pages"
+      xmlns:uc="clr-namespace:RealEstateAgency.Desktop.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="DealPage">
+      Title="DealPage"
+      Loaded="Page_Loaded">
 
-    <Grid>
-        
-    </Grid>
+    <Page.Resources>
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+            <Setter Property="Foreground" Value="#78909C"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="5"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <StackPanel>
+        <StackPanel x:Name="panelInfo">
+            <uc:UCTextInput Placeholder="Потребность" 
+                            x:Name="tiNeed"
+                            IsDigit="True"/>
+            <uc:UCTextInput Placeholder="Предложение" 
+                            x:Name="tiOffer"
+                            IsDigit="True"/>
+            <uc:UCTextInput Placeholder="Комиссия покупателя" 
+                            x:Name="tiBuyerCommission"
+                            IsDigit="True"/>
+            <uc:UCTextInput Placeholder="Комиссия продавца" 
+                            x:Name="tiSellerCommission"
+                            IsDigit="True"/>
+        </StackPanel>
+        <StackPanel Margin="10"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Left">
+
+            <StackPanel x:Name="panelBtnToEdit"
+                        Visibility="Collapsed"
+                        Width="310">
+                <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Редактировать"
+                        x:Name="btnEdit"
+                        Click="btnEdit_Click"/>
+                <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Удалить"
+                        x:Name="btnDelete"
+                        Click="btnDelete_Click"/>
+            </StackPanel>
+
+            <StackPanel x:Name="panelBtnsEditSettings"
+                        Visibility="Collapsed"
+                        Width="310">
+                <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Сохранить"
+                        x:Name="btnSaveChanges"
+                        Click="btnSaveChanges_Click"/>
+                <Button Style="{DynamicResource ButtonStyle}" 
+                        Content="Отмена"
+                        x:Name="btnCancelChanges"
+                        Click="btnCancelChanges_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Page>

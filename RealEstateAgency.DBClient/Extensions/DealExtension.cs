@@ -1,36 +1,47 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RealEstateAgency.DBClient.Contracts.Requests;
 using RealEstateAgency.DBClient.Data.Models.db;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealEstateAgency.DBClient.Extensions
 {
     public static class DealExtension
     {
-        public static async Task<Deal> GetDeal(this DBClient dbClient, int id)
+        public static Deal GetDeal(this DBClient dbClient, int id)
         {
-            return await dbClient.context.Deals.FirstOrDefaultAsync(c => c.Id == id);
+            return dbClient.context.Deals
+                .Include(x => x.Need)
+                    .ThenInclude(x => x.Type)
+                .Include(x => x.Offer)
+                    .ThenInclude(x => x.RealEstate)
+                            .ThenInclude(x => x.PropertyAddress)
+                .First(c => c.Id == id);
         }
 
         public static List<Deal> GetDeals(this DBClient dbClient)
         {
-            return dbClient.context.Deals.ToList();
+            return dbClient.context.Deals
+                .Include(x => x.Offer)
+                    .ThenInclude(x => x.RealEstate)
+                        .ThenInclude(x => x.PropertyAddress)
+                .ToList();
         }
 
 
         public static async Task<Deal> CreateDeal(this DBClient dbClient, CreateDealRequest createDeal)
         {
+            var sellerCommission = createDeal.Offer.RealEstate.Type.CommissionAmount + (createDeal.Offer.RealEstate.Type.CommissionPercentage * 0.01 * createDeal.Offer.Price);
+            var buyerCommission = createDeal.Offer.Price * 0.03;
+
             var deal = new Deal()
             {
-                SellerCommission = createDeal.SellerCommission,
-                BuyerCommission = createDeal.BuyerCommission,
+                SellerCommission = sellerCommission,
+                BuyerCommission = buyerCommission,
                 Need = createDeal.Need,
                 Offer = createDeal.Offer,
             };
+
+            createDeal.Need.IsSatisfied = true;
+            createDeal.Offer.IsSatisfied = true;
 
             dbClient.context.Deals.Add(deal);
             await dbClient.context.SaveChangesAsync();
@@ -46,8 +57,6 @@ namespace RealEstateAgency.DBClient.Extensions
             {
                 deal.SellerCommission = updateDeal.SellerCommission;
                 deal.BuyerCommission = updateDeal.BuyerCommission;
-                deal.Need = updateDeal.Need;
-                deal.Offer = updateDeal.Offer;
 
                 await dbClient.context.SaveChangesAsync();
                 return deal;
@@ -55,7 +64,7 @@ namespace RealEstateAgency.DBClient.Extensions
             return null;
         }
 
-        public static async void DeleteDeal(this DBClient dbClient, int id)
+        public static async Task DeleteDeal(this DBClient dbClient, int id)
         {
             var deal = dbClient.context.Deals.Find(id);
 

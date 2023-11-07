@@ -11,7 +11,7 @@
       Loaded="Page_Loaded">
 
     <Page.Resources>
-        <Style TargetType="TextBlock" x:Key="TextBoxStyle">
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
             <Setter Property="Foreground" Value="#78909C"/>
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -21,7 +21,6 @@
         <Style TargetType="StackPanel">
             <Setter Property="Width" Value="Auto"/>
         </Style>
-
 
     </Page.Resources>
 
@@ -60,7 +59,7 @@
             <WrapPanel Margin="0">
                 <StackPanel x:Name="panelInfo">
                     <TextBlock Text="Общие сведения:"
-                               Style="{StaticResource TextBoxStyle}"/>
+                               Style="{StaticResource TextBlockStyle}"/>
                     <ComboBox x:Name="cbClient"
                               Style="{DynamicResource ComboBoxStyle}"
                               Tag="Клиент"
@@ -96,7 +95,7 @@
                 <StackPanel x:Name="panelTypeApartment"
                         Visibility="Collapsed">
                     <TextBlock Text="Информация:"
-                           Style="{StaticResource TextBoxStyle}"/>
+                           Style="{StaticResource TextBlockStyle}"/>
                     <uc:UCTextInput Placeholder="Минимальная площадь" 
                                     x:Name="tiMinAreaApartment"/>
                     <uc:UCTextInput Placeholder="Максимальная площадь" 
@@ -114,7 +113,7 @@
                 <StackPanel x:Name="panelTypeHouse"
                         Visibility="Collapsed">
                     <TextBlock Text="Информация:"
-                           Style="{StaticResource TextBoxStyle}"/>
+                           Style="{StaticResource TextBlockStyle}"/>
                     <uc:UCTextInput Placeholder="Минимальная площадь" 
                                     x:Name="tiMinAreaHouse"/>
                     <uc:UCTextInput Placeholder="Максимальная площадь" 
@@ -128,7 +127,7 @@
                 <StackPanel x:Name="panelTypeLandPlot"
                         Visibility="Collapsed">
                     <TextBlock Text="Информация:"
-                           Style="{StaticResource TextBoxStyle}"/>
+                           Style="{StaticResource TextBlockStyle}"/>
                     <uc:UCTextInput Placeholder="Минимальная площадь" 
                                     x:Name="tiMinAreaLandPlot"/>
                     <uc:UCTextInput Placeholder="Максимальная площадь" 
@@ -138,7 +137,7 @@
                 <StackPanel x:Name="panelAddress"
                         Visibility="Collapsed">
                     <TextBlock Text="Адресс:"
-                           Style="{StaticResource TextBoxStyle}"/>
+                           Style="{StaticResource TextBlockStyle}"/>
                     <uc:UCTextInput Placeholder="Город"
                                 x:Name="tiCity"/>
                     <uc:UCTextInput Placeholder="Улица"
@@ -191,7 +190,74 @@
                         x:Name="btnCancelChanges"
                         Click="btnCancelChanges_Click"/>
                 </StackPanel>
+
+                <StackPanel x:Name="panelDeal"
+                            Visibility="Collapsed"
+                            Width="310">
+                    <Button Style="{DynamicResource ButtonStyle}" 
+                            Content="Заключить сделку"
+                            x:Name="btnHaveDeal"
+                            Click="btnHaveDeal_Click"/>
+                </StackPanel>
             </StackPanel>
+
+
+            <TextBlock Text="Подходящие предложения:"
+                       Style="{StaticResource TextBlockStyle}"/>
+            <ListView x:Name="lvOffer" 
+                      HorizontalAlignment="Left"
+                      BorderThickness="0 0 0 0"
+                      Margin="10"
+                      BorderBrush="Transparent"
+                      Background="Transparent"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      SelectionChanged="lvOffer_SelectionChanged">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Stretch"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Width="1000">
+                            <TextBlock Text="{Binding RealEstate.Type.Name}" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="{Binding Price}" Style="{StaticResource TextBlockStyle}"/>
+                            <TextBlock Text="{Binding PropertyAddress.Street}" Style="{StaticResource TextBlockStyle}"/>
+
+                            <TextBlock Text="{Binding RealEstate.PropertyAddress.City}" Style="{StaticResource TextBlockStyle}"/>
+
+                            <TextBlock Text="ул." Margin="5,5,1,5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=lbStreet, Path=Text}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock x:Name="lbStreet" Text="{Binding RealEstate.PropertyAddress.Street}" Style="{StaticResource TextBlockStyle}"/>
+
+                            <TextBlock Margin="5,5,1,5" Text="{Binding RealEstate.PropertyAddress.HouseNumber}" Style="{StaticResource TextBlockStyle}"/>
+
+                            <TextBlock Text="кв." Margin="5,5,1,5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=lbApartmentNumber, Path=Text}" Value="">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock x:Name="lbApartmentNumber" Text="{Binding RealEstate.PropertyAddress.ApartmentNumber}" Style="{StaticResource TextBlockStyle}"/>
+
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
     </ScrollViewer>
 </Page>

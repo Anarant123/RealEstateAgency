@@ -23,7 +23,7 @@
         </Style>
     </Page.Resources>
 
-    <StackPanel>
+    <StackPanel HorizontalAlignment="Center">
         <StackPanel x:Name="panelInfo">
             <uc:UCTextInput Placeholder="Потребность" 
                             x:Name="tiNeed"
@@ -40,10 +40,11 @@
         </StackPanel>
         <StackPanel Margin="10"
                     Orientation="Vertical"
-                    HorizontalAlignment="Left">
+                    HorizontalAlignment="Center">
 
             <StackPanel x:Name="panelBtnToEdit"
                         Visibility="Collapsed"
+                        HorizontalAlignment="Center"
                         Width="310">
                 <Button Style="{DynamicResource ButtonStyle}" 
                         Content="Редактировать"
@@ -57,6 +58,7 @@
 
             <StackPanel x:Name="panelBtnsEditSettings"
                         Visibility="Collapsed"
+                        HorizontalAlignment="Center"
                         Width="310">
                 <Button Style="{DynamicResource ButtonStyle}" 
                         Content="Сохранить"

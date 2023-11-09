@@ -7,8 +7,33 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="NullPage">
-
+    
+    
     <Grid>
-        
+        <Image Source="/Resources/Images/logo.png"
+               Height="100"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top">
+            <Image.RenderTransform>
+                <TranslateTransform X="0" Y="0"/>
+            </Image.RenderTransform>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                         From="0"
+                                         To="800"
+                                         Duration="0:0:3" AutoReverse="True"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                         From="0"
+                                         To="500"
+                                         Duration="0:0:2" AutoReverse="True"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
     </Grid>
+
 </Page>

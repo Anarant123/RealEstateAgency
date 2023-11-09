@@ -26,7 +26,7 @@ namespace RealEstateAgency.Desktop
         {
             InitializeComponent();
             Context.dBClient = new DBClient.DBClient(new DBClient.Data.Models.RealEstateAgencyContext());
-            //frameMain.NavigationService.Navigate(new ClientPage());
+            frameMain.NavigationService.Navigate(new NullPage());
         }
 
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
@@ -55,30 +55,36 @@ namespace RealEstateAgency.Desktop
         private void btnMenuClient_Click(object sender, RoutedEventArgs e)
         {
             frameMain.NavigationService.Navigate(new ListPersonPage(1));
+            lbNamePage.Text = "Клиенты";
         }
         private void btnMenuRealtor_Click(object sender, RoutedEventArgs e)
         {
             frameMain.NavigationService.Navigate(new ListPersonPage(2));
+            lbNamePage.Text = "Риэлторы";
         }
 
         private void btnMenuRealEstate_Click(object sender, RoutedEventArgs e)
         {
             frameMain.NavigationService.Navigate(new ListRealEstatePage());
+            lbNamePage.Text = "Недвижимость";
         }
 
         private void btnMenuNeed_Click(object sender, RoutedEventArgs e)
         {
             frameMain.NavigationService.Navigate(new ListNeedPage());
+            lbNamePage.Text = "Потребности";
         }
 
         private void btnMenuOffer_Click(object sender, RoutedEventArgs e)
         {
             frameMain.NavigationService.Navigate(new ListOfferPage());
+            lbNamePage.Text = "Предложения";
         }
 
         private void btnMenuDeal_Click(object sender, RoutedEventArgs e)
         {
             frameMain.NavigationService.Navigate(new ListDealPage());
+            lbNamePage.Text = "Сделки";
         }
     }
 }
